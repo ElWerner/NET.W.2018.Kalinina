@@ -1,1 +1,1 @@
-# NET.W.2018.Kalinina
+Repository for EPAM .NET Training Tasks
