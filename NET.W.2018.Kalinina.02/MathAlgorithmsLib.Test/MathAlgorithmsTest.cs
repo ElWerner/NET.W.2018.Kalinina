@@ -368,6 +368,60 @@ namespace MathAlgorithmsLib.Test
             MathAlgorithms.FindNextBiggerNumber(3);
         }
 
+        [TestMethod]
+        public void FindNextBiggerNumber_Number20Miliseconds_M1Expected()
+        {
+            int number = 20;
+            long miliseconds;
 
+            int actual = MathAlgorithms.FindNextBiggerNumber(number, out miliseconds);
+
+            int expected = -1;
+
+            Assert.AreEqual(expected, actual);
+        }
+
+
+        [TestMethod]
+        public void FindNextBiggerNumber_Number144Miliseonds_414Expected()
+        {
+            int number = 144;
+
+            long miliseconds;
+
+            int actual = MathAlgorithms.FindNextBiggerNumber(number, out miliseconds);
+
+            int expected = 414;
+
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestMethod]
+        public void FindNextBiggerNumber_Number1234321Miliseconds_1241233Expected()
+        {
+            int number = 1234321;
+            long miliseconds;
+
+            int actual = MathAlgorithms.FindNextBiggerNumber(number, out miliseconds);
+
+
+            int expected = 1241233;
+
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestMethod]
+        public void FindNextBiggerNumber_Number1234126Miliseconds_1234162Expected()
+        {
+            int number = 1234126;
+
+            long miliseconds;
+
+            int actual = MathAlgorithms.FindNextBiggerNumber(number, out miliseconds);
+
+            int expected = 1234162;
+
+            Assert.AreEqual(expected, actual);
+        }
     }
 }
