@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,6 +17,7 @@ namespace MathAlgorithmsLib
         /// <summary>
         /// Method for finding the greatest common division of some numbers by using Euclidean algorithm
         /// </summary>
+        /// <param name="time">Elapsed time</param>
         /// <param name="numbers">The numbers those need to find the greatest common division </param>
         /// <returns>The greatest common division for numbers</returns>
         /// <exception cref="ArgumentNullException">Thrown when numbers are not initialized</exception>
@@ -23,7 +25,7 @@ namespace MathAlgorithmsLib
         /// the GCD</exception>
         /// <exception cref="ArgumentException">Thrown when there is the only one 
         /// number to find GCD</exception>
-        public static int EuclideanAlgorithm(params int[] numbers)
+        public static int EuclideanAlgorithm(out long time, params int[] numbers)
         {
             if (numbers == null)
                 throw new ArgumentNullException("Numbers are not initialized.");
@@ -32,13 +34,18 @@ namespace MathAlgorithmsLib
             if (numbers.Length == 1)
                 throw new ArgumentException("It's impossible to find GCD of one number.");
 
-            return EuclidGCD(numbers);
+            Stopwatch stopwatch = Stopwatch.StartNew();
+            int gcdResult = EuclidGCD(numbers);
+            time = stopwatch.ElapsedMilliseconds;
+
+            return gcdResult;
         }
 
         /// <summary>
         /// Method for finding the greatest common division of some numbers by using Binary 
         /// Euclidean algorithm (Stein's Algorithm)
         /// </summary>
+        /// <param name="time">Elapsed time</param>
         /// <param name="numbers">The numbers those need to find the greatest common division </param>
         /// <returns>The greatest common division for numbers</returns>
         /// <exception cref="ArgumentNullException">Thrown when numbers are not initialized</exception>
@@ -46,7 +53,7 @@ namespace MathAlgorithmsLib
         /// the GCD</exception>
         /// <exception cref="ArgumentException">Thrown when there is the only one 
         /// number to find GCD</exception>
-        public static int BinaryEuclideanAlgorithm(params int[] numbers)
+        public static int BinaryEuclideanAlgorithm(out long time, params int[] numbers)
         {
             if (numbers == null)
                 throw new ArgumentNullException("Numbers are not initialized.");
@@ -55,7 +62,11 @@ namespace MathAlgorithmsLib
             if (numbers.Length == 1)
                 throw new ArgumentException("It's impossible to find GCD of one number.");
 
-            return BinaryEuclidGCD(numbers);
+            Stopwatch stopwatch = Stopwatch.StartNew();
+            int gcdResult = BinaryEuclidGCD(numbers);
+            time = stopwatch.ElapsedMilliseconds;
+
+            return gcdResult;
         }
 
         #endregion
