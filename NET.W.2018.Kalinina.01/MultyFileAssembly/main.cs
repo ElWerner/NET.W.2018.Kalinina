@@ -8,11 +8,12 @@ class Program
         Vehicle vehicle = new Vehicle();
         vehicle.VehicleInfo();
 
-		Roadster roadster = new Roadster();
+	Roadster roadster = new Roadster();
         roadster.RoadsterInfo();
 	
-		FClassCar fClassCar = new FClassCar();
-		fClassCar.FClassCarInfo();
+	FClassCar fClassCar = new FClassCar();
+	fClassCar.FClassCarInfo();
 	
         Console.ReadLine();
     }
+}
