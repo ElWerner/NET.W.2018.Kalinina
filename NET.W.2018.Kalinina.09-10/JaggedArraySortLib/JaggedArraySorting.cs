@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 
 namespace JaggedArraySortLib
 {
-    //TODO: add mathod with delegate-comparator parameter
     /// <summary>
     /// Represent a class providing jagged array sort algorithm
     /// </summary>
