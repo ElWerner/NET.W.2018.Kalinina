@@ -6,31 +6,49 @@ using System.Threading.Tasks;
 
 namespace MatrixLib
 {
+    /// <summary>
+    /// A class that represents diagonal matrix
+    /// </summary>
+    /// <typeparam name="T">Type of matrix elements</typeparam>
     public class DiagonalMatrix<T> : SquareMatrix<T>
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DiagonalMatrix{T}"/> class with specified size
+        /// </summary>
+        /// <param name="size">Size of the matrix</param>
         public DiagonalMatrix(int size) : base(size) { }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DiagonalMatrix{T}"/> class
+        /// </summary>
+        /// <param name="matrix">Matrix elements</param>
+        /// <exception cref="ArgumentNullException">Thrown when matrix is null </exception>
+        /// <exception cref="ArgumentException">Thrown when specified matrix doesn't match the type</exception>
         public DiagonalMatrix(T[,] matrix)
         {
             if (matrix == null)
             {
-                throw new ArgumentNullException();
+                throw new ArgumentNullException("Matrix is not initialized.");
             }
 
             if (matrix.Length == 0)
             {
-                throw new ArgumentNullException();
+                throw new ArgumentNullException("Matrix is not initialized.");
             }
 
             if (!IsDiagonalMatrix(matrix))
             {
-                throw new ArgumentException();
+                throw new ArgumentException("Specified matrix doesn't match the type.");
             }
 
             this.matrix = matrix;
             this.size = matrix.GetLength(0);
         }
 
+        /// <summary>
+        /// Gets or sets current matrix
+        /// </summary>
+        /// <exception cref="ArgumentException">Thrown when specified matrix doesn't match the type</exception>
         public override T[,] Matrix
         {
             get
@@ -40,13 +58,21 @@ namespace MatrixLib
 
             set
             {
-                if (IsDiagonalMatrix(value))
+                if (!IsDiagonalMatrix(value))
                 {
-                    matrix = value;
+                    throw new ArgumentException("Specified matrix doesn't match the type.");
                 }
+
+                matrix = value;
+                
             }
         }
 
+        /// <summary>
+        /// Chechks if specified matrix matches the diagonal matrix type
+        /// </summary>
+        /// <param name="matrix">Specified matrix</param>
+        /// <returns>True if matrix is diagonal. False otherwise</returns>
         public static bool IsDiagonalMatrix(T[,] matrix)
         {
             if (matrix == null)

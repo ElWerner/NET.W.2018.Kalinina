@@ -6,18 +6,31 @@ using System.Threading.Tasks;
 
 namespace MatrixLib
 {
+    /// <summary>
+    /// Represents a class providing <see cref="SquareMatrix{T}"/> class extension
+    /// </summary>
     public static class MatrixExtension
     {
+        /// <summary>
+        /// Summarizes two matrix
+        /// </summary>
+        /// <typeparam name="T">Type of matrix elements</typeparam>
+        /// <param name="firstMatrix">First matrix</param>
+        /// <param name="secondMatrix">Second matrix</param>
+        /// <returns>Sum of two matrix</returns>
+        /// <exception cref="ArgumentNullException">Thrown when one of the matrix is null</exception>
+        /// <exception cref="ArgumentException">Thrown when matrix have different sizes</exception>
+        /// <exception cref="InvalidOperationException">Thrown when first matrix type doesn't match second matrix type</exception>
         public static SquareMatrix<T> Sum<T>(this SquareMatrix<T> firstMatrix, SquareMatrix<T> secondMatrix)
         {
             if(firstMatrix == null || secondMatrix == null)
             {
-                throw new ArgumentNullException();
+                throw new ArgumentNullException("Matrix is null.");
             }
 
             if(firstMatrix.Size != secondMatrix.Size)
             {
-                throw new ArgumentException();
+                throw new ArgumentException("Matrixes sizes don't match.");
             }
 
             SquareMatrix<T> resultantMatrix = new SquareMatrix<T>(firstMatrix.Size);
@@ -34,7 +47,7 @@ namespace MatrixLib
             }
             catch
             {
-                throw new InvalidOperationException();
+                throw new InvalidOperationException("First matrix type doesn't match second matrix type.");
             }
 
             return resultantMatrix;
