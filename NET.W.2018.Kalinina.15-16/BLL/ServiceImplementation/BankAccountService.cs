@@ -115,15 +115,15 @@ namespace BLL.ServiceImplementation
                         repository.AddAccount(newAccount);
                     }
                     break;
-                case AccountType.Silver:
+                case AccountType.Gold:
                     {
                         newAccount = new SilverAccount(accountOwner, accountID, invoiceAmount, bonusScores);
                         repository.AddAccount(newAccount);
                     }
                     break;
-                case AccountType.Gold:
+                case AccountType.Platinum:
                     {
-                        newAccount = new GoldAccount(accountOwner, accountID, invoiceAmount, bonusScores);
+                        newAccount = new PlatinumAccount(accountOwner, accountID, invoiceAmount, bonusScores);
                         repository.AddAccount(newAccount);
                     }
                     break;

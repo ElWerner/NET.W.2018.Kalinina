@@ -22,7 +22,7 @@ namespace BLL.Interface.Entities
         private const int DEPOSITCOEFFICIENT = 10;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="GoldAccount"/> class with specified params
+        /// Initializes a new instance of the <see cref="PlatinumAccount"/> class with specified params
         /// </summary>
         /// <param name="accountNumber">Account number</param>
         /// <param name="owner">Account owner</param>

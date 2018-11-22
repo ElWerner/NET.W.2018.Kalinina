@@ -26,7 +26,7 @@ namespace BankAccountConsoleApp
             IAccountService service = resolver.Get<IAccountService>();
             service.OpenAccount("Ivanov", "Ivan", "5523664212", 500, 0, AccountType.Base);
             service.OpenAccount("Petrov", "Petr", "454121313f", 100, 0, AccountType.Gold);
-            service.OpenAccount("Fedorova", "Maria", "54121ef21", 1000, 0, AccountType.Silver);
+            service.OpenAccount("Fedorova", "Maria", "54121ef21", 1000, 0, AccountType.Platinum);
 
             var accounts = service.GetAccounts();
             ListInput(accounts);
