@@ -7,19 +7,19 @@ using System.Threading.Tasks;
 namespace BLL.Interface.Entities
 {
     /// <summary>
-    /// A class that represents gold bank account entity
+    /// A class that represents platinum bank account entity
     /// </summary>
-    public class SilverAccount : BankAccount
+    public class PlatinumAccount : BankAccount
     {
         /// <summary>
         /// A field to hold withdraw coefficient to calculate bonus scores
         /// </summary>
-        private const int WITHDRAWCOEFFICIENT = 6;
+        private const int WITHDRAWCOEFFICIENT = 4;
 
         /// <summary>
         /// A filed to hold deposit coefficient to calculate bonus scores
         /// </summary>
-        private const int DEPOSITCOEFFICIENT = 7;
+        private const int DEPOSITCOEFFICIENT = 10;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="GoldAccount"/> class with specified params
@@ -128,7 +128,7 @@ namespace BLL.Interface.Entities
         /// <returns>A string that represents instance</returns>
         public override string ToString()
         {
-            return base.ToString() + " Account type: Silver.";
+            return base.ToString() + " Account type: Platinum.";
         }
     }
 }
