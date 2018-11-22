@@ -109,7 +109,7 @@ namespace BLL.Interface.Entities
         /// <returns>Decreased bonus scores</returns>
         private double DecreaseBonusScores(decimal amount)
         {
-            double decreaseScores = BonuseScores - ((double)amount * WITHDRAWCOEFFICIENT * PERCENTS);
+            double decreaseScores = Math.Abs(BonuseScores - ((double)amount * WITHDRAWCOEFFICIENT * PERCENTS));
 
             if (decreaseScores > BonuseScores)
             {
@@ -128,7 +128,7 @@ namespace BLL.Interface.Entities
         /// <returns>A string that represents instance</returns>
         public override string ToString()
         {
-            return base.ToString() + "Account type: Base.";
+            return base.ToString() + " Account type: Base.";
         }
     }
 }

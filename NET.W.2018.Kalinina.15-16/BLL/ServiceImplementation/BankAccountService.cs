@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using BLL.Interface.Interfaces;
 using BLL.Interface.Entities;
-using DAL.Repositories;
+using DAL.Interfaces;
 
 namespace BLL.ServiceImplementation
 {
@@ -83,6 +83,12 @@ namespace BLL.ServiceImplementation
         /// <param name="amount">Withdraw amount</param>
         /// <param name="accountID">Account ID</param>
         public void WithdrawMoney(string accountID, decimal amount) => repository.FindAccountByID(accountID).WithdrawMoney(amount);
+
+        /// <summary>
+        /// Gets all bank accounts
+        /// </summary>
+        ///<returns>Collection of accounts</returns>
+        public IEnumerable<BankAccount> GetAccounts() => repository.GetAccounts();
 
         /// <summary>
         /// Creates new bank account with specified type and adds it to the repository

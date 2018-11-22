@@ -23,6 +23,17 @@ namespace BLL.Interface.Interfaces
         void OpenAccount(AccountOwner accountOwner, string accountID, decimal invoiceAmount, double bonusScores, AccountType accountType);
 
         /// <summary>
+        /// Opens new account with specified type
+        /// </summary>
+        /// <param name="lastName">Account owner's last name</param>
+        /// <param name="firstName">Account owner's fist name</param>
+        /// <param name="accountID">Account ID</param>
+        /// <param name="invoiceAmount">Invoice amount</param>
+        /// <param name="bonusScores">Bonus Scores</param>
+        /// <param name="accountType">Account type</param>
+        void OpenAccount(string lastName, string firstName, string accountID, decimal invoiceAmount, double bonusScores, AccountType accountType);
+
+        /// <summary>
         /// Deposits money to the account
         /// </summary>
         /// <param name="amount">Deposit amount</param>
@@ -41,5 +52,11 @@ namespace BLL.Interface.Interfaces
         /// </summary>
         /// <param name="accountID">Account ID</param>
         void CloseAccount(string accountID);
+
+        /// <summary>
+        /// Gets all bank accounts
+        /// </summary>
+        ///<returns>Collection of accounts</returns>
+        IEnumerable<BankAccount> GetAccounts();
     }
 }

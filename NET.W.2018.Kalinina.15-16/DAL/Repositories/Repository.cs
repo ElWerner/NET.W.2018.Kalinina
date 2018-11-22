@@ -1,10 +1,12 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using BLL.Interface.Entities;
+using DAL.Interfaces;
 
 namespace DAL.Repositories
 {
@@ -92,6 +94,15 @@ namespace DAL.Repositories
             }
 
             return null;
+        }
+
+        /// <summary>
+        /// Gets all bank accounts
+        /// </summary>
+        ///<returns>Collection of accounts</returns>
+        public IEnumerable<BankAccount> GetAccounts()
+        {
+            return accounts;
         }
 
         /// <summary>
