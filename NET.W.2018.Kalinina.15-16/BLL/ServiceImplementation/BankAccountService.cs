@@ -91,6 +91,12 @@ namespace BLL.ServiceImplementation
         public IEnumerable<BankAccount> GetAccounts() => repository.GetAccounts();
 
         /// <summary>
+        /// Gets account wiht specified ID
+        /// </summary>
+        /// <param name="accountID">Account ID</param>
+        public BankAccount GetAccountByID(string accountID) => repository.FindAccountByID(accountID);
+
+        /// <summary>
         /// Creates new bank account with specified type and adds it to the repository
         /// </summary>
         /// <param name="accountOwner">Account owner</param>

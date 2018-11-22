@@ -54,6 +54,12 @@ namespace BLL.Interface.Interfaces
         void CloseAccount(string accountID);
 
         /// <summary>
+        /// Gets account wiht specified ID
+        /// </summary>
+        /// <param name="accountID">Account ID</param>
+        BankAccount GetAccountByID(string accountID);
+
+        /// <summary>
         /// Gets all bank accounts
         /// </summary>
         ///<returns>Collection of accounts</returns>
