@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        .body {
+            background: linear-gradient(0.25turn, lavender, #f5fffa, #f0fff0);
+        }
+
+        .column {
+            float: left;
+            width: 31.3%;
+            padding: 10px;
+            height: max-content;
+            margin-right: 1%;
+            margin-left: 1%;
+        }
+
+        .headline {
+            height: 4%;
+            text-align: center;
+        }
+
+        .content {
+            text-indent: 1.5em;
+        }
+
+        .row {
+            margin-top: auto;
+        }
+
+            .row:after {
+                content: "";
+                display: table;
+                clear: both;
+            }
+
+        @media screen and (max-width: 400px) {
+            .column {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body class="body">
+
+    <h2 style="text-align:left; margin-left:1%; color:darkcyan">Responsive Three Column Layout</h2>
+    <div class="row">
+        <div class="column" style="opacity: 0.6; background: linear-gradient(0.50turn, #ff69b4, #4b0082); color:white;">
+            <div class="headline">
+                <h2>Column 1</h2>
+            </div>
+            <div class="content">
+                <p>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis
+
+                    nisl sem, tempus in eleifend sed, pretium sed orci. Proin lacinia mi leo,
+
+                    lobortis varius nisi pellentesque vehicula. Praesent vel lobortis mauris. Nulla
+
+                    eleifend, tellus non facilisis mollis, ligula arcu tempor ipsum, vel ullamcorper
+
+                    metus ex vitae erat. Quisque nec dui vestibulum, sodales enim in, auctor metus.
+
+                    Aenean eleifend libero rutrum odio sagittis aliquet. Duis nec venenatis sem.
+
+                    Fusce fermentum tellus in est porttitor, eu pellentesque dui viverra. Sed nisl
+
+                    nulla, viverra a varius et, tristique et elit. Curabitur rutrum gravida odio.
+
+                    Pellentesque sagittis pharetra orci in tristique. Donec laoreet orci lectus, ut
+
+                    tempor augue iaculis in. Vivamus eget libero a ligula pharetra placerat nec ac
+
+                    tortor.
+                </p>
+                <p>
+                    Aenean sed nibh nisl. Sed sit amet venenatis nunc. Donec
+
+                    porttitor justo magna, eu malesuada nisi sagittis sed. Maecenas nisl lacus,
+
+                    sagittis at velit rhoncus, molestie consectetur tortor. Duis dapibus risus augue,
+
+                    id vehicula lacus aliquet vel. Quisque egestas eleifend ante non molestie. Ut mi
+
+                    magna, posuere at orci ut, vulputate porta mauris. Praesent ante metus, suscipit
+
+                    quis tincidunt non, tempor at ante. Ut ut massa nunc. Cras vel nibh ac eros
+
+                    rutrum vulputate id at metus. Vivamus et elit ac nunc placerat aliquam. Etiam
+
+                    rhoncus congue accumsan.
+                </p>
+                <p>
+                    Nullam enim nulla, facilisis laoreet consectetur eget, dictum in lorem. Duis ultricies 
+                    
+                    commodo magna, id aliquet ligula egestas in. Suspendisse ultricies odio sit amet neque 
+                    
+                    vulputate dictum. Ut in tortor eget enim sagittis mattis. Nullam egestas sem ac metus 
+                    
+                    ullamcorper, eu placerat risus convallis. Morbi mi metus, posuere quis velit eu, rutrum 
+                    
+                    eleifend nisi. Curabitur efficitur leo sed mauris convallis molestie.
+                </p>
+                <p>
+                    Duis eu laoreet eros. Aliquam eu lobortis dolor, non rutrum purus. Fusce in sem nunc. 
+                    
+                    Vestibulum pellentesque nibh est, pellentesque congue purus ullamcorper vel. Aliquam id 
+                    
+                    interdum arcu, nec ultricies elit. Pellentesque malesuada imperdiet libero in aliquet. 
+                    
+                    Proin fermentum pulvinar euismod. Nam in consectetur dui. Fusce eu velit at lacus placerat 
+                    
+                    ornare a ac urna. Curabitur luctus semper ornare. Nam auctor justo at erat scelerisque 
+                    
+                    sollicitudin.
+                </p>
+                <p>
+                    Morbi non orci ac est tempor dictum eu id justo. Etiam nec lectus sapien. Aliquam ultrices 
+                    
+                    libero sed consectetur ultrices. Sed eget sagittis lacus. Nunc semper augue ut risus 
+                    
+                    euismod pharetra. Nam facilisis, augue ac porttitor consectetur, ipsum dolor consectetur 
+                    
+                    magna, elementum lacinia mi lectus non lorem. Phasellus eget ligula vitae felis sodales 
+                    
+                    tempor. Nunc quis ex quis odio mollis molestie vel sit amet nunc. Phasellus ultrices purus 
+                    
+                    ligula, ac cursus ex varius a. Cras vel accumsan quam, et sodales quam. Vivamus ante augue, 
+                    
+                    auctor faucibus ante quis, egestas convallis libero. Class aptent taciti sociosqu ad litora 
+                    
+                    torquent per conubia nostra, per inceptos himenaeos. Donec gravida nunc sit amet diam volutpat, 
+                    
+                    eu pretium justo congue. Curabitur et nisi odio. Phasellus vel lorem massa.
+                </p>
+            </div>
+        </div>
+        <div class="column" style="opacity: 0.6; background: linear-gradient(0.50turn, #1E90FF, #00008B); color:white;">
+            <div class="headline">
+                <h2>Column 1</h2>
+            </div>
+            <div>
+                <p style="text-indent: 1.5em;">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis
+
+                    nisl sem, tempus in eleifend sed, pretium sed orci. Proin lacinia mi leo,
+
+                    lobortis varius nisi pellentesque vehicula. Praesent vel lobortis mauris. Nulla
+
+                    eleifend, tellus non facilisis mollis, ligula arcu tempor ipsum, vel ullamcorper
+
+                    metus ex vitae erat. Quisque nec dui vestibulum, sodales enim in, auctor metus.
+
+                    Aenean eleifend libero rutrum odio sagittis aliquet. Duis nec venenatis sem.
+
+                    Fusce fermentum tellus in est porttitor, eu pellentesque dui viverra. Sed nisl
+
+                    nulla, viverra a varius et, tristique et elit. Curabitur rutrum gravida odio.
+
+                    Pellentesque sagittis pharetra orci in tristique. Donec laoreet orci lectus, ut
+
+                    tempor augue iaculis in. Vivamus eget libero a ligula pharetra placerat nec ac
+
+                    tortor.
+                </p>
+                <p>
+                    <img src="https://img4.goodfon.ru/original/360x480/e/d1/krokusy-shafran-mnogo-lepestki-vesna-makro.jpg" style="position:relative; width:100%;">
+                </p>
+            </div>
+        </div>
+        <div class="column" style="opacity: 0.8; background: linear-gradient(0.50turn, #90ee90, #2e8b57); color:white;">
+            <div class="headline">
+                <h2>Column 1</h2>
+            </div>
+            <div>
+                <p>
+                    <img src="https://img1.goodfon.ru/original/480x800/8/57/kitay-gory-holmy-derevya.jpg" style="position:relative; width:100%;">
+                </p>
+                <p style="text-indent: 1.5em;">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis
+
+                    nisl sem, tempus in eleifend sed, pretium sed orci. Proin lacinia mi leo,
+
+                    lobortis varius nisi pellentesque vehicula. Praesent vel lobortis mauris. Nulla
+
+                    eleifend, tellus non facilisis mollis, ligula arcu tempor ipsum, vel ullamcorper
+
+                    metus ex vitae erat. Quisque nec dui vestibulum, sodales enim in, auctor metus.
+
+                    Aenean eleifend libero rutrum odio sagittis aliquet. Duis nec venenatis sem.
+
+                    Fusce fermentum tellus in est porttitor, eu pellentesque dui viverra. Sed nisl
+
+                    nulla, viverra a varius et, tristique et elit. Curabitur rutrum gravida odio.
+
+                    Pellentesque sagittis pharetra orci in tristique. Donec laoreet orci lectus, ut
+
+                    tempor augue iaculis in. Vivamus eget libero a ligula pharetra placerat nec ac
+
+                    tortor.
+                </p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
