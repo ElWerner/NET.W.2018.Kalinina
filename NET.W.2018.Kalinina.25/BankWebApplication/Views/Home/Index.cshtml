@@ -1,0 +1,57 @@
+﻿@{
+    Layout = null;
+}
+@using BLL.Interface.Entities;
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Банк</title>
+</head>
+<body>
+    <div>
+        <h3>Банковские счета</h3>
+        <table>
+            <tr>
+                <td><p>ID</p></td>
+                <td><p>Владелец</p></td>
+                <td><p>Сумма на счете</p></td>
+                <td><p>Тип счета</p></td>
+                <td><p>Бонусные очки</p></td>
+                <td><p>Открыт</p></td>
+                <td></td>
+            </tr>
+            @foreach (var b in ViewBag.Accounts)
+            {
+            <tr>
+                @{
+                    string accountType = string.Empty;
+                    if (b.GetType() == typeof(BaseAccount))
+                    {
+                        accountType = "Base";
+                    }
+                    else if (b.GetType() == typeof(GoldAccount))
+                    {
+                        accountType = "Gold";
+                    }
+                    else if (b.GetType() == typeof(PlatinumAccount))
+                    {
+                        accountType = "Platinum";
+                    }
+                }
+                <td><p>@b.BankAccountId</p></td>
+                <td><p>@b.Owner.FirstName @b.Owner.LastName</p></td>
+                <td><p>@b.InvoiceAmount</p></td>
+                <td><p>@accountType</p></td>
+                <td><p>@b.BonuseScores</p></td>
+                <td><p>@b.IsClosed</p></td>
+                <td><p><a href="/Home/Input/Deposit/@b.AccountID">Deposit</a></p></td>
+                <td><p><a href="/Home/Withdraw/@b.AccountID">Withdraw</a></p></td>
+                <td><p><a href="/Home/Close/@b.AccountID">Close</a></p></td>
+            </tr>
+            }
+        </table>
+    </div>
+</body>
+</html>
