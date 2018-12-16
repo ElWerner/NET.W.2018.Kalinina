@@ -24,14 +24,21 @@ namespace JaggedArraySortLib
         public static void SortJaggedArray(int[][] array, IComparer comparer)
         {
             if (array == null)
+            {
                 throw new ArgumentNullException("Array is not initialized.");
-            if (comparer == null)
-                throw new ArgumentNullException("Sorting order is not specified");
+            }
 
-            for(int i = 0; i < array.Length; i++)
+            if (comparer == null)
+            {
+                throw new ArgumentNullException("Sorting order is not specified");
+            }
+
+            for (int i = 0; i < array.Length; i++)
             {
                 if (array[i] == null)
+                {
                     throw new NullReferenceException("Inner array is not initialized.");
+                }
             }
 
             SortJaggedArrayRows(array, comparer);
@@ -47,7 +54,6 @@ namespace JaggedArraySortLib
         /// <param name="comparer">Order of sorting</param>
         private static void SortJaggedArrayRows(int[][] array, IComparer comparer)
         {
-
             int n = array.Length;
             for (int i = 0; i < n - 1; i++)
             {
@@ -76,4 +82,3 @@ namespace JaggedArraySortLib
         #endregion
     }
 }
-

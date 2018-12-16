@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace QuickSort
 {
@@ -11,6 +7,8 @@ namespace QuickSort
     /// </summary>
     public static class QuickSortAlgorithm
     {
+        #region Public API
+
         /// <summary>
         /// Sorting the array in ascending order
         /// </summary>
@@ -25,6 +23,10 @@ namespace QuickSort
 
             return QuickSort(array, 0, array.Length - 1);
         }
+
+        #endregion
+
+        #region Private API
 
         /// <summary>
         /// Partitioning the array into two parts using pivot element
@@ -75,7 +77,7 @@ namespace QuickSort
         /// <summary>
         /// Swapping two elements in the array
         /// </summary>
-        /// <param name="array">The array in which you want to swap elemets</param>
+        /// <param name="array">The array in which you want to swap elements</param>
         /// <param name="firstElementIndex">The index of the first element</param>
         /// <param name="secondElementIndex">The index of the second element</param>
         private static void Swap(int[] array, int firstElementIndex, int secondElementIndex)
@@ -84,5 +86,7 @@ namespace QuickSort
             array[firstElementIndex] = array[secondElementIndex];
             array[secondElementIndex] = temp;
         }
+
+        #endregion
     }
 }

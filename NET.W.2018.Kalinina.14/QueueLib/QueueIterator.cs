@@ -12,6 +12,7 @@ namespace QueueLib
     /// <typeparam name="T">Type of queue elements</typeparam>
     public class QueueIterator<T>
     {
+        #region Fields
         /// <summary>
         /// A field to hold reference to the queue container
         /// </summary>
@@ -22,6 +23,10 @@ namespace QueueLib
         /// </summary>
         private int currentIndex;
 
+        #endregion
+
+        #region Constructors
+
         /// <summary>
         /// Initializes a new instance of the <see cref="QueueIterator{T}"/> with specified container
         /// </summary>
@@ -29,7 +34,7 @@ namespace QueueLib
         /// <exception cref="ArgumentNullException">Thrown when container is null</exception>
         public QueueIterator(Queue<T> collection)
         {
-            if(collection == null)
+            if (collection == null)
             {
                 throw new ArgumentNullException("Collection is null.");
             }
@@ -37,6 +42,10 @@ namespace QueueLib
             currentIndex = -1;
             this.collection = collection;
         }
+
+        #endregion
+
+        #region Properties
 
         /// <summary>
         /// Gets current queue element
@@ -47,11 +56,17 @@ namespace QueueLib
             get
             {
                 if (currentIndex == -1 || currentIndex > collection.Count)
+                {
                     throw new ArgumentOutOfRangeException("Index is out of range.");
+                }
 
                 return collection[currentIndex];
             }
         }
+
+        #endregion
+
+        #region Public API
 
         /// <summary>
         /// Resets current queue index
@@ -67,13 +82,15 @@ namespace QueueLib
         /// <returns>False if the current element is the last element in the queue. True otherwise</returns>
         public bool MoveNext()
         {
-            if(currentIndex < collection.Count)
+            if (currentIndex < collection.Count)
             {
                 currentIndex++;
-                return (currentIndex < collection.Count);
+                return currentIndex < collection.Count;
             }
 
             return false;
         }
+
+        #endregion
     }
 }

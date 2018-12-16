@@ -11,6 +11,8 @@ namespace BookLibraryLib
     /// </summary>
     public class Book : IComparable<Book>, IEquatable<Book>
     {
+        #region Fields
+
         /// <summary>
         /// A field to hold ISBN
         /// </summary>
@@ -41,8 +43,12 @@ namespace BookLibraryLib
         /// </summary>
         private int numberOfPages;
 
+        #endregion
+
+        #region Constructors
+
         /// <summary>
-        /// Initializes a new instanceof the <see cref="Book"/> with specified parametres
+        /// Initializes a new instance of the <see cref="Book"/> with specified parameters
         /// </summary>
         /// <param name="isbn">ISBN</param>
         /// <param name="author">Author's name</param>
@@ -59,6 +65,10 @@ namespace BookLibraryLib
             PublicationYear = publicationYear;
             NumberOfPages = numberOfPages;
         }
+
+        #endregion
+
+        #region Properties
 
         /// <summary>
         /// Gets or sets ISBN
@@ -222,9 +232,13 @@ namespace BookLibraryLib
             {
                 Book book = obj as Book;
 
-                return Equals(book);
+                return this.Equals(book);
             }
         }
+
+        #endregion
+
+        #region Public API
 
         /// <summary>
         /// Calculates a hash code for this instance
@@ -294,5 +308,7 @@ namespace BookLibraryLib
                     (Publisher == other.Publisher) && (PublicationYear == other.PublicationYear) &&
                     (NumberOfPages == other.NumberOfPages);
         }
+
+        #endregion
     }
 }

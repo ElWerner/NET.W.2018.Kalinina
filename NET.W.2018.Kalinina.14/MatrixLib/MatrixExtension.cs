@@ -23,12 +23,12 @@ namespace MatrixLib
         /// <exception cref="InvalidOperationException">Thrown when first matrix type doesn't match second matrix type</exception>
         public static SquareMatrix<T> Sum<T>(this SquareMatrix<T> firstMatrix, SquareMatrix<T> secondMatrix)
         {
-            if(firstMatrix == null || secondMatrix == null)
+            if (firstMatrix == null || secondMatrix == null)
             {
                 throw new ArgumentNullException("Matrix is null.");
             }
 
-            if(firstMatrix.Size != secondMatrix.Size)
+            if (firstMatrix.Size != secondMatrix.Size)
             {
                 throw new ArgumentException("Matrixes sizes don't match.");
             }
@@ -37,7 +37,7 @@ namespace MatrixLib
 
             try
             {
-                for(int i = 0; i < resultantMatrix.Size; i++)
+                for (int i = 0; i < resultantMatrix.Size; i++)
                 {
                     for (int j = 0; j < resultantMatrix.Size; j++)
                     {

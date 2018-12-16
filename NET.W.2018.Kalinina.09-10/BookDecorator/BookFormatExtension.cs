@@ -16,7 +16,7 @@ namespace BookLibrary
         /// <summary>
         /// Initializes a new instance of the <see cref="BookFormatExtensionTitle"/> class
         /// </summary>
-        /// <param name="book">Extandable object</param>
+        /// <param name="book">Extendable object</param>
         public BookFormatExtensionTitle(IBook book) : base(book)
         {
         }
@@ -40,7 +40,7 @@ namespace BookLibrary
         /// <summary>
         /// Initializes a new instance of the <see cref="BookFormatExtensionAuthor"/> class
         /// </summary>
-        /// <param name="book">Extandable object</param>
+        /// <param name="book">Extendable object</param>
         public BookFormatExtensionAuthor(IBook book) : base(book)
         {
         }
@@ -64,7 +64,7 @@ namespace BookLibrary
         /// <summary>
         /// Initializes a new instance of the <see cref="BookFormatExtensionPublishingHouse"/> class
         /// </summary>
-        /// <param name="book">Extandable object</param>
+        /// <param name="book">Extendable object</param>
         public BookFormatExtensionPublishingHouse(IBook book) : base(book)
         {
         }
@@ -88,7 +88,7 @@ namespace BookLibrary
         /// <summary>
         /// Initializes a new instance of the <see cref="BookFormatExtensionPublishingHouse"/> class
         /// </summary>
-        /// <param name="book">Extandable object</param>
+        /// <param name="book">Extendable object</param>
         public BookFormatExtensionIsbn(IBook book) : base(book)
         {
         }
@@ -112,7 +112,7 @@ namespace BookLibrary
         /// <summary>
         /// Initializes a new instance of the <see cref="BookFormatExtensionPublishingHouse"/> class
         /// </summary>
-        /// <param name="book">Extandable object</param>
+        /// <param name="book">Extendable object</param>
         public BookFormatExtensionYear(IBook book) : base(book)
         {
         }
@@ -136,7 +136,7 @@ namespace BookLibrary
         /// <summary>
         /// Initializes a new instance of the <see cref="BookFormatExtensionPublishingHouse"/> class
         /// </summary>
-        /// <param name="book">Extandable object</param>
+        /// <param name="book">Extendable object</param>
         public BookFormatExtensionPages(IBook book) : base(book)
         {
         }
@@ -160,17 +160,17 @@ namespace BookLibrary
         /// <summary>
         /// A field to hold culture info
         /// </summary>
-        CultureInfo cultureInfo;
+        private CultureInfo cultureInfo;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="BookFormatExtensionPublishingHouse"/> class
         /// </summary>
-        /// <param name="book">Extandable object</param>
+        /// <param name="book">Extendable object</param>
         /// <param name="cultureInfo">Culture info</param>
         /// <exception cref="ArgumentNullException">Thrown when culture info is null</exception>
         public BookFormatExtensionPrice(IBook book, CultureInfo cultureInfo) : base(book)
         {
-            if(cultureInfo == null)
+            if (cultureInfo == null)
             {
                 throw new ArgumentNullException("Culture Info is null.");
             }
@@ -184,7 +184,7 @@ namespace BookLibrary
         /// <returns>String representation of the book instance with price of the book</returns>
         public override string ToString()
         {
-            IFormatProvider fp = new PriceFormatProvider(cultureInfo);
+            IFormatProvider fp = new PriceFormatProvider(this.cultureInfo);
 
             return $"{base.ToString()} {string.Format(fp, "{0}", book.Price)},".TrimStart();
         }

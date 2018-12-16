@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace RouletteLib
 {
     /// <summary>
-    /// Represents a class containing roulette events argumnets
+    /// Represents a class containing roulette events arguments
     /// </summary>
     public sealed class RouletteEventArgs : EventArgs
     {
@@ -28,8 +28,8 @@ namespace RouletteLib
         /// <param name="number">Winning number</param>
         public RouletteEventArgs(string color, int number)
         {
-            Color = color;
-            Number = number;
+            this.Color = color;
+            this.Number = number;
         }
 
         /// <summary>
@@ -40,7 +40,7 @@ namespace RouletteLib
         {
             get
             {
-                return number;
+                return this.number;
             }
 
             private set
@@ -50,7 +50,7 @@ namespace RouletteLib
                     throw new ArgumentOutOfRangeException("Number must be less than 36 and equal or greater than 0.");
                 }
 
-                number = value;
+                this.number = value;
             }
         }
 
@@ -59,12 +59,13 @@ namespace RouletteLib
         /// </summary>
         /// <exception cref="ArgumentNullException">Thrown when color string is null or empty</exception>
         /// <exception cref="ArgumentException">Thrown when color is wrong</exception>
-        public String Color
+        public string Color
         {
             get
             {
-                return color;
+                return this.color;
             }
+
             private set
             {
                 if (string.IsNullOrEmpty(value))
@@ -77,7 +78,7 @@ namespace RouletteLib
                     throw new ArgumentException("Color is wrong.");
                 }
 
-                color = value;
+                this.color = value;
             }
         }
     }

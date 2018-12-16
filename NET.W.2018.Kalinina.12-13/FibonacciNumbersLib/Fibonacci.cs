@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FibonacciNumbersLib
 {
@@ -19,7 +15,7 @@ namespace FibonacciNumbersLib
         /// <exception cref="ArgumentOutOfRangeException">Thrown when amount is less or equal than 0</exception>
         public static int[] FibonacciGeneration(int amount)
         {
-            if(amount <= 0)
+            if (amount <= 0)
             {
                 throw new ArgumentOutOfRangeException($"{nameof(amount)} parameter must be greater than 0");
             }
@@ -36,12 +32,12 @@ namespace FibonacciNumbersLib
         {
             if (amount == 1)
             {
-                return new int[]{ 0 };
+                return new int[] { 0 };
             }
 
             if (amount == 2)
             {
-                return new int[]{ 0, 1 };
+                return new int[] { 0, 1 };
             }
 
             int[] fibonacciArray = new int[amount];

@@ -24,7 +24,7 @@ namespace BookLibrary
         /// <summary>
         /// Initializes a new instance of the <see cref="BookGenreDecorator"/> class
         /// </summary>
-        /// <param name="book">Extandable object</param>
+        /// <param name="book">Extendable object</param>
         /// <param name="genre">Book genre</param>
         public BookGenreDecorator(IBook book, string genre) : base(book)
         {
@@ -42,7 +42,7 @@ namespace BookLibrary
         {
             get
             {
-                return genre;
+                return this.genre;
             }
 
             private set
@@ -52,7 +52,7 @@ namespace BookLibrary
                     throw new ArgumentNullException("Genre is not initialized.");
                 }
 
-                genre = value;
+                this.genre = value;
             }
         }
 

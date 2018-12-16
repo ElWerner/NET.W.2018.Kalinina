@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Text.RegularExpressions;
 
 namespace BookLibrary
@@ -52,7 +48,7 @@ namespace BookLibrary
 
         #region Constructors
         /// <summary>
-        /// Initializes a new instance of the <see cref="Book"/> class with specified parametres
+        /// Initializes a new instance of the <see cref="Book"/> class with specified parameters
         /// </summary>
         /// <param name="isbn">Book isbn</param>
         /// <param name="title">Book title</param>
@@ -82,7 +78,11 @@ namespace BookLibrary
         /// <exception cref="ArgumentException">Thrown when ISBN string doesn't match ISBN format</exception>
         public string Isbn
         {
-            get { return isbn; }
+            get
+            {
+                return isbn;
+            }
+
             set
             {
                 if (string.IsNullOrEmpty(value))
@@ -92,7 +92,7 @@ namespace BookLibrary
 
                 Regex reg = new Regex("[0-9]{3}-[0-9]{1}-[0-9]{4}-[0-9]{4}-[0-9]{1}$");
 
-                if(!reg.IsMatch(value))
+                if (!reg.IsMatch(value))
                 {
                     throw new ArgumentException("ISBN string doesn't conform to the expected ISBN format.");
                 }
@@ -107,7 +107,11 @@ namespace BookLibrary
         /// <exception cref="ArgumentNullException">Thrown when title string is null or empty</exception>
         public string Title
         {
-            get { return title; }
+            get
+            {
+                return title;
+            }
+
             set
             {
                 if (string.IsNullOrEmpty(value))
@@ -125,7 +129,11 @@ namespace BookLibrary
         /// <exception cref="ArgumentNullException">Thrown when author's name string is null or empty</exception>
         public string Author
         {
-            get { return author; }
+            get
+            {
+                return author;
+            }
+
             set
             {
                 if (string.IsNullOrEmpty(value))
@@ -143,7 +151,11 @@ namespace BookLibrary
         /// <exception cref="ArgumentNullException">Thrown when publishing house string is null or empty</exception>
         public string PublishingHouse
         {
-            get { return publishingHouse; }
+            get
+            {
+                return publishingHouse;
+            }
+
             set
             {
                 if (string.IsNullOrEmpty(value))
@@ -161,7 +173,11 @@ namespace BookLibrary
         /// <exception cref="ArgumentOutOfRangeException">Thrown when year is less than 0</exception>
         public int Year
         {
-            get { return year; }
+            get
+            {
+                return year;
+            }
+
             set
             {
                 if (value < 0)
@@ -179,7 +195,11 @@ namespace BookLibrary
         /// <exception cref="ArgumentOutOfRangeException">Thrown when price is less than 0</exception>
         public decimal Price
         {
-            get { return price; }
+            get
+            {
+                return price;
+            }
+
             set
             {
                 if (value < 0)
@@ -197,7 +217,11 @@ namespace BookLibrary
         /// <exception cref="ArgumentOutOfRangeException">Thrown when amount of pages is less than 0</exception>
         public int Pages
         {
-            get { return pages; }
+            get
+            {
+                return pages;
+            }
+
             set
             {
                 if (value < 0)
@@ -218,7 +242,7 @@ namespace BookLibrary
         /// <returns>A string that represents instance</returns>
         public new string ToString()
         {
-            return "";
+            return string.Empty;
         }
 
         #endregion

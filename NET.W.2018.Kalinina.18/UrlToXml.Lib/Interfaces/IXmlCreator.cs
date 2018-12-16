@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace UrlParser.Lib.Interfaces
+﻿namespace UrlParser.Lib.Interfaces
 {
     /// <summary>
     /// Xml creator, that provides creating xml document based on file, that stores url addresses

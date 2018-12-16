@@ -21,6 +21,7 @@ namespace BankAccountLib
     /// </summary>
     public class BankAccount
     {
+        #region Fields
         /// <summary>
         /// A filed to hold account number
         /// </summary>
@@ -56,9 +57,11 @@ namespace BankAccountLib
         /// </summary>
         private bool isClosed;
 
- 
+        #endregion
+
+        #region Constructors
         /// <summary>
-        /// Initializes a new instance of the <see cref="BankAccount"/> class with specified params
+        /// Initializes a new instance of the <see cref="BankAccount"/> class with specified parameters
         /// </summary>
         /// <param name="accountNumber">Account number</param>
         /// <param name="firstName">First name of the owner</param>
@@ -67,9 +70,14 @@ namespace BankAccountLib
         /// <param name="bonusScores">Bonus scores</param>
         /// <param name="accountType">Account type</param>
         /// <param name="isClosed">Account status</param>
-        public BankAccount(string accountNumber, string firstName, string lastName,
-               decimal invoiceAmount, double bonusScores, 
-               BancAccountType accountType, bool isClosed = false)
+        public BankAccount(
+            string accountNumber,
+            string firstName,
+            string lastName,
+            decimal invoiceAmount,
+            double bonusScores, 
+            BancAccountType accountType,
+            bool isClosed = false)
         {
             AccountNumber = accountNumber;
             FirstName = firstName;
@@ -80,6 +88,9 @@ namespace BankAccountLib
             IsClosed = isClosed;
         }
 
+        #endregion
+
+        #region Properties
         /// <summary>
         /// Gets or sets account number
         /// </summary>
@@ -106,7 +117,7 @@ namespace BankAccountLib
         /// <summary>
         /// Gets or sets first name
         /// </summary>
-        ///<exception cref="ArgumentNullException">Thrown when first name is 
+        /// <exception cref="ArgumentNullException">Thrown when first name is 
         /// null or empty</exception>
         public string FirstName
         {
@@ -129,7 +140,7 @@ namespace BankAccountLib
         /// <summary>
         /// Gets or sets last name
         /// </summary>
-        ///<exception cref="ArgumentNullException">Thrown when last name is 
+        /// <exception cref="ArgumentNullException">Thrown when last name is 
         /// null or empty</exception>
         public string LastName
         {
@@ -233,7 +244,9 @@ namespace BankAccountLib
             }
         }
 
+        #endregion
 
+        #region Public API
         /// <summary>
         /// Returns a string representation of instance
         /// </summary>
@@ -244,5 +257,7 @@ namespace BankAccountLib
                 $"Invoice Amount: {invoiceAmount:C}, Bonus Scores: {bonusScores}, " +
                 $"Account Type: {accountType.ToString()}, Is Closed?: {isClosed}";
         }
+
+        #endregion
     }
 }

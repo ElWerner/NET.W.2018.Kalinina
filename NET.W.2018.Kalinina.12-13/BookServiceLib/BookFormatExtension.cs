@@ -16,10 +16,10 @@ namespace BookServiceLib
         /// <summary>
         /// Initializes a new instance of the <see cref="BookFormatExtensionTitle"/> class
         /// </summary>
-        /// <param name="book">Extandable object</param>
+        /// <param name="book">Extendable object</param>
         public BookFormatExtensionTitle(IBook book) : base(book)
         {
-            BookServiceLogger.log.Trace("Initialized a new instance of the BookFormatExtensionTitle class.");
+            BookServiceLogger.Log.Trace("Initialized a new instance of the BookFormatExtensionTitle class.");
         }
 
         /// <summary>
@@ -28,8 +28,8 @@ namespace BookServiceLib
         /// <returns>String representation of the book instance with book title</returns>
         public override string ToString()
         {
-            string result =  $"{base.ToString()} {book.Title},".TrimStart();
-            BookServiceLogger.log.Error($"The string was received: {result}.");
+            string result = $"{base.ToString()} {Book.Title},".TrimStart();
+            BookServiceLogger.Log.Error($"The string was received: {result}.");
             return result;
         }
     }
@@ -43,10 +43,10 @@ namespace BookServiceLib
         /// <summary>
         /// Initializes a new instance of the <see cref="BookFormatExtensionAuthor"/> class
         /// </summary>
-        /// <param name="book">Extandable object</param>
+        /// <param name="book">Extendable object</param>
         public BookFormatExtensionAuthor(IBook book) : base(book)
         {
-            BookServiceLogger.log.Trace("Initialized a new instance of the BookFormatExtensionAuthor class.");
+            BookServiceLogger.Log.Trace("Initialized a new instance of the BookFormatExtensionAuthor class.");
         }
 
         /// <summary>
@@ -55,8 +55,8 @@ namespace BookServiceLib
         /// <returns>String representation of the book instance with book author</returns>
         public override string ToString()
         {
-            string result = $"{base.ToString()} {book.Author},".TrimStart();
-            BookServiceLogger.log.Error($"The string was received: {result}.");
+            string result = $"{base.ToString()} {Book.Author},".TrimStart();
+            BookServiceLogger.Log.Error($"The string was received: {result}.");
             return result;
         }
     }
@@ -70,10 +70,10 @@ namespace BookServiceLib
         /// <summary>
         /// Initializes a new instance of the <see cref="BookFormatExtensionPublishingHouse"/> class
         /// </summary>
-        /// <param name="book">Extandable object</param>
+        /// <param name="book">Extendable object</param>
         public BookFormatExtensionPublishingHouse(IBook book) : base(book)
         {
-            BookServiceLogger.log.Trace("Initialized a new instance of the BookFormatExtensionPublishingHouse class.");
+            BookServiceLogger.Log.Trace("Initialized a new instance of the BookFormatExtensionPublishingHouse class.");
         }
 
         /// <summary>
@@ -82,8 +82,8 @@ namespace BookServiceLib
         /// <returns>String representation of the book instance with publishing house</returns>
         public override string ToString()
         {
-            string result = $"{base.ToString()} {book.PublishingHouse},".TrimStart();
-            BookServiceLogger.log.Error($"The string was received: {result}.");
+            string result = $"{base.ToString()} {Book.PublishingHouse},".TrimStart();
+            BookServiceLogger.Log.Error($"The string was received: {result}.");
             return result;
         }
     }
@@ -97,10 +97,10 @@ namespace BookServiceLib
         /// <summary>
         /// Initializes a new instance of the <see cref="BookFormatExtensionPublishingHouse"/> class
         /// </summary>
-        /// <param name="book">Extandable object</param>
+        /// <param name="book">Extendable object</param>
         public BookFormatExtensionIsbn(IBook book) : base(book)
         {
-            BookServiceLogger.log.Trace("Initialized a new instance of the BookFormatExtensionIsbn class.");
+            BookServiceLogger.Log.Trace("Initialized a new instance of the BookFormatExtensionIsbn class.");
         }
 
         /// <summary>
@@ -109,8 +109,8 @@ namespace BookServiceLib
         /// <returns>String representation of the book instance with ISBN</returns>
         public override string ToString()
         {
-            string result =  $"ISBN 13: {book.Isbn}, {base.ToString()}".TrimStart();
-            BookServiceLogger.log.Error($"The string was received: {result}.");
+            string result = $"ISBN 13: {Book.Isbn}, {base.ToString()}".TrimStart();
+            BookServiceLogger.Log.Error($"The string was received: {result}.");
             return result;
         }
     }
@@ -124,10 +124,10 @@ namespace BookServiceLib
         /// <summary>
         /// Initializes a new instance of the <see cref="BookFormatExtensionPublishingHouse"/> class
         /// </summary>
-        /// <param name="book">Extandable object</param>
+        /// <param name="book">Extendable object</param>
         public BookFormatExtensionYear(IBook book) : base(book)
         {
-            BookServiceLogger.log.Trace("Initialized a new instance of the BookFormatExtensionYear class.");
+            BookServiceLogger.Log.Trace("Initialized a new instance of the BookFormatExtensionYear class.");
         }
 
         /// <summary>
@@ -136,8 +136,8 @@ namespace BookServiceLib
         /// <returns>String representation of the book instance with year of publishing</returns>
         public override string ToString()
         {
-            string result = $"{base.ToString()} {book.Year},".TrimStart();
-            BookServiceLogger.log.Error($"The string was received: {result}.");
+            string result = $"{base.ToString()} {Book.Year},".TrimStart();
+            BookServiceLogger.Log.Error($"The string was received: {result}.");
             return result;
         }
     }
@@ -151,10 +151,10 @@ namespace BookServiceLib
         /// <summary>
         /// Initializes a new instance of the <see cref="BookFormatExtensionPublishingHouse"/> class
         /// </summary>
-        /// <param name="book">Extandable object</param>
+        /// <param name="book">Extendable object</param>
         public BookFormatExtensionPages(IBook book) : base(book)
         {
-            BookServiceLogger.log.Trace("Initialized a new instance of the BookFormatExtensionPages class.");
+            BookServiceLogger.Log.Trace("Initialized a new instance of the BookFormatExtensionPages class.");
         }
 
         /// <summary>
@@ -163,8 +163,8 @@ namespace BookServiceLib
         /// <returns>String representation of the book instance with number of pages</returns>
         public override string ToString()
         {
-            string result =  $"{base.ToString()} P. {book.Pages},".TrimStart();
-            BookServiceLogger.log.Error($"The string was received: {result}.");
+            string result = $"{base.ToString()} P. {Book.Pages},".TrimStart();
+            BookServiceLogger.Log.Error($"The string was received: {result}.");
             return result;
         }
     }
@@ -178,24 +178,24 @@ namespace BookServiceLib
         /// <summary>
         /// A field to hold culture info
         /// </summary>
-        CultureInfo cultureInfo;
+        private CultureInfo cultureInfo;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="BookFormatExtensionPublishingHouse"/> class
         /// </summary>
-        /// <param name="book">Extandable object</param>
+        /// <param name="book">Extendable object</param>
         /// <param name="cultureInfo">Culture info</param>
         /// <exception cref="ArgumentNullException">Thrown when culture info is null</exception>
         public BookFormatExtensionPrice(IBook book, CultureInfo cultureInfo) : base(book)
         {
-            if(cultureInfo == null)
+            if (cultureInfo == null)
             {
-                BookServiceLogger.log.Error("Culture Info is null.");
+                BookServiceLogger.Log.Error("Culture Info is null.");
                 throw new ArgumentNullException("Culture Info is null.");
             }
 
             this.cultureInfo = cultureInfo;
-            BookServiceLogger.log.Trace($"Initialized a new instance of the BookFormatExtensionPrice class with culture info {cultureInfo}.");
+            BookServiceLogger.Log.Trace($"Initialized a new instance of the BookFormatExtensionPrice class with culture info {cultureInfo}.");
         }
 
         /// <summary>
@@ -204,10 +204,10 @@ namespace BookServiceLib
         /// <returns>String representation of the book instance with price of the book</returns>
         public override string ToString()
         {
-            IFormatProvider fp = new PriceFormatProvider(cultureInfo);
+            IFormatProvider fp = new PriceFormatProvider(this.cultureInfo);
 
-            string result = $"{base.ToString()} {string.Format(fp, "{0}", book.Price)},".TrimStart();
-            BookServiceLogger.log.Error($"The string was received: {result}.");
+            string result = $"{base.ToString()} {string.Format(fp, "{0}", Book.Price)},".TrimStart();
+            BookServiceLogger.Log.Error($"The string was received: {result}.");
             return result;
         }
     }

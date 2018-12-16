@@ -13,7 +13,7 @@ namespace BookLibrary
     {
         #region Fields
         /// <summary>
-        /// A filed to hold instance of the extandable object
+        /// A filed to hold instance of the extendable object
         /// </summary>
         protected IBook book;
 
@@ -23,7 +23,7 @@ namespace BookLibrary
         /// <summary>
         /// Initializes a new instance of the <see cref="BookDecorator"/> class
         /// </summary>
-        /// <param name="book">Extandable object</param>
+        /// <param name="book">Extendable object</param>
         public BookDecorator(IBook book)
         {
             this.book = book ?? throw new ArgumentNullException("Book is not initialized.");

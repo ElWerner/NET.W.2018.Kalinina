@@ -9,7 +9,7 @@ namespace RouletteLib
     /// <summary>
     /// Represents a class providing roulette entity
     /// </summary>
-    class Roulette
+    public class Roulette
     { 
         /// <summary>
         /// A filed to hold random numbers generator entity
@@ -46,6 +46,7 @@ namespace RouletteLib
                     {
                         color = "black";
                     }
+
                     break;
                 default:
                     color = "red";

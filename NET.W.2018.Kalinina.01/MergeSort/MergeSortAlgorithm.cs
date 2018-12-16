@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MergeSort
 {
@@ -11,6 +7,8 @@ namespace MergeSort
     /// </summary>
     public static class MergeSortAlgorithm
     {
+        #region Public API
+
         /// <summary>
         /// Sorting the array in ascending order
         /// </summary>
@@ -26,6 +24,10 @@ namespace MergeSort
             return MergeSort(array, 0, array.Length - 1);
         }
 
+        #endregion
+
+        #region Private API
+
         /// <summary>
         /// Partitioning the array into two parts using pivot element index
         /// </summary>
@@ -37,7 +39,7 @@ namespace MergeSort
         {
             if (leftBoundary < rightBoundary)
             {
-                int pivotIndex = leftBoundary + (rightBoundary - leftBoundary) / 2;
+                int pivotIndex = leftBoundary + ((rightBoundary - leftBoundary) / 2);
 
                 MergeSort(array, leftBoundary, pivotIndex);
                 MergeSort(array, pivotIndex + 1, rightBoundary);
@@ -65,10 +67,14 @@ namespace MergeSort
             int[] rightTempArray = new int[right];
 
             for (i = 0; i < left; i++)
+            {
                 leftTempArray[i] = array[leftBoundary + i];
+            }
 
             for (i = 0; i < right; i++)
+            {
                 rightTempArray[i] = array[pivotIndex + 1 + i];
+            }            
 
             i = j = 0;
             k = leftBoundary;
@@ -84,20 +90,25 @@ namespace MergeSort
                     array[k] = rightTempArray[j];
                     j++;
                 }
+
                 k++;
             }
 
             while (i < left)
             {
                 array[k] = leftTempArray[i];
-                i++; k++;
+                i++;
+                k++;
             }
 
             while (j < right)
             {
                 array[k] = rightTempArray[j];
-                j++; k++;
+                j++;
+                k++;
             }
         }
+
+        #endregion
     }
 }

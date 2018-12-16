@@ -10,7 +10,7 @@ namespace MatrixLib
     /// <summary>
     /// Represents a class providing event handler
     /// </summary>
-    class EventHandler
+    public class EventHandler
     {
         /// <summary>
         /// Generates new message on event occurs

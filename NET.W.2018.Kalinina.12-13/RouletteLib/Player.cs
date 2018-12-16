@@ -52,7 +52,7 @@ namespace RouletteLib
 
             private set
             {
-                if(value < 0 || value > 36)
+                if (value < 0 || value > 36)
                 {
                     throw new ArgumentOutOfRangeException("Number must be less than 36 and equal or greater than 0.");
                 }
@@ -66,12 +66,13 @@ namespace RouletteLib
         /// </summary>
         /// <exception cref="ArgumentNullException">Thrown when color string is null or empty</exception>
         /// <exception cref="ArgumentException">Thrown when color is wrong</exception>
-        public String Color
+        public string Color
         {
             get
             {
                 return color;
             }
+
             private set
             {
                 if (string.IsNullOrEmpty(value))
@@ -79,7 +80,7 @@ namespace RouletteLib
                     throw new ArgumentNullException("Color string is not initialized.");
                 }
 
-                if(value.ToLower() != "red" || value.ToLower() != "black" || value.ToLower() != "green")
+                if (value.ToLower() != "red" || value.ToLower() != "black" || value.ToLower() != "green")
                 {
                     throw new ArgumentException("Color is wrong.");
                 }
@@ -89,11 +90,29 @@ namespace RouletteLib
         }
 
         /// <summary>
+        /// Unregisters player from receiving messages
+        /// </summary>
+        /// <param name="manager">Message sender</param>
+        public void Unregister(RouletteManager manager)
+        {
+            manager.NewMessage -= PlayerMsg;
+        }
+
+        /// <summary>
+        /// Registers player on receiving messages
+        /// </summary>
+        /// <param name="manager">Message sender</param>
+        public void Register(RouletteManager manager)
+        {
+            manager.NewMessage += PlayerMsg;
+        }
+
+        /// <summary>
         /// Gets message from sender
         /// </summary>
         /// <param name="sender">Message sender</param>
         /// <param name="eventArgs">Message arguments</param>
-        private void PlayerMsg(Object sender, RouletteEventArgs eventArgs)
+        private void PlayerMsg(object sender, RouletteEventArgs eventArgs)
         {
             Console.WriteLine("Winner combination: {0} - {1}", eventArgs.Color, eventArgs.Number);
 
@@ -105,25 +124,6 @@ namespace RouletteLib
             {
                 Console.WriteLine("Better luck next time.");
             }
-
-        }
-
-        /// <summary>
-        /// Unregisters player from recieving messages
-        /// </summary>
-        /// <param name="manager">Message sender</param>
-        public void Unregister(RouletteManager manager)
-        {
-            manager.NewMessage -= PlayerMsg;
-        }
-
-        /// <summary>
-        /// Registers player on recieving messages
-        /// </summary>
-        /// <param name="manager">Message sender</param>
-        public void Register(RouletteManager manager)
-        {
-            manager.NewMessage += PlayerMsg;
         }
     }
 }

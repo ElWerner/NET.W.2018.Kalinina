@@ -1,11 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Text.RegularExpressions;
-using NLog;
-using NLog.Fluent;
 
 namespace BookServiceLib
 {
@@ -54,7 +48,7 @@ namespace BookServiceLib
 
         #region Constructors
         /// <summary>
-        /// Initializes a new instance of the <see cref="Book"/> class with specified parametres
+        /// Initializes a new instance of the <see cref="Book"/> class with specified parameters
         /// </summary>
         /// <param name="isbn">Book isbn</param>
         /// <param name="title">Book title</param>
@@ -73,7 +67,7 @@ namespace BookServiceLib
             Price = price;
             Pages = pages;
 
-            BookServiceLogger.log.Trace("Created new instance of the Book class");
+            BookServiceLogger.Log.Trace("Created new instance of the Book class");
         }
 
         #endregion
@@ -86,20 +80,24 @@ namespace BookServiceLib
         /// <exception cref="ArgumentException">Thrown when ISBN string doesn't match ISBN format</exception>
         public string Isbn
         {
-            get { return isbn; }
+            get
+            {
+                return isbn;
+            }
+
             set
             {
                 if (string.IsNullOrEmpty(value))
                 {
-                    BookServiceLogger.log.Error("ISBN string is not initialized.");
+                    BookServiceLogger.Log.Error("ISBN string is not initialized.");
                     throw new ArgumentNullException("ISBN string is not initialized.");
                 }
 
                 Regex reg = new Regex("[0-9]{3}-[0-9]{1}-[0-9]{4}-[0-9]{4}-[0-9]{1}$");
 
-                if(!reg.IsMatch(value))
+                if (!reg.IsMatch(value))
                 {
-                    BookServiceLogger.log.Error("ISBN string doesn't conform to the expected ISBN format.");
+                    BookServiceLogger.Log.Error("ISBN string doesn't conform to the expected ISBN format.");
                     throw new ArgumentException("ISBN string doesn't conform to the expected ISBN format.");
                 }
 
@@ -113,12 +111,16 @@ namespace BookServiceLib
         /// <exception cref="ArgumentNullException">Thrown when title string is null or empty</exception>
         public string Title
         {
-            get { return title; }
+            get
+            {
+                return title;
+            }
+
             set
             {
                 if (string.IsNullOrEmpty(value))
                 {
-                    BookServiceLogger.log.Error("Ttile string is not initialized.");
+                    BookServiceLogger.Log.Error("Ttile string is not initialized.");
                     throw new ArgumentNullException("Title is not initialized.");
                 }
 
@@ -132,12 +134,16 @@ namespace BookServiceLib
         /// <exception cref="ArgumentNullException">Thrown when author's name string is null or empty</exception>
         public string Author
         {
-            get { return author; }
+            get
+            {
+                return author;
+            }
+
             set
             {
                 if (string.IsNullOrEmpty(value))
                 {
-                    BookServiceLogger.log.Error("Author's name string is not initialized.");
+                    BookServiceLogger.Log.Error("Author's name string is not initialized.");
                     throw new ArgumentNullException("Author's name is not initialized.");
                 }
 
@@ -160,7 +166,7 @@ namespace BookServiceLib
             {
                 if (string.IsNullOrEmpty(value))
                 {
-                    BookServiceLogger.log.Error("Publishing house string is not initialized.");
+                    BookServiceLogger.Log.Error("Publishing house string is not initialized.");
                     throw new ArgumentNullException("Publishing house is not initialized.");
                 }
 
@@ -174,12 +180,16 @@ namespace BookServiceLib
         /// <exception cref="ArgumentOutOfRangeException">Thrown when year is less than 0</exception>
         public int Year
         {
-            get { return year; }
+            get
+            {
+                return year;
+            }
+
             set
             {
                 if (value < 0)
                 {
-                    BookServiceLogger.log.Error("Year is out of range.");
+                    BookServiceLogger.Log.Error("Year is out of range.");
                     throw new ArgumentOutOfRangeException("Year is out of range");
                 }
 
@@ -193,12 +203,16 @@ namespace BookServiceLib
         /// <exception cref="ArgumentOutOfRangeException">Thrown when price is less than 0</exception>
         public decimal Price
         {
-            get { return price; }
+            get
+            {
+                return price;
+            }
+
             set
             {
                 if (value < 0)
                 {
-                    BookServiceLogger.log.Error("Price is out of range.");
+                    BookServiceLogger.Log.Error("Price is out of range.");
                     throw new ArgumentOutOfRangeException("Price is out of range");
                 }
 
@@ -212,12 +226,16 @@ namespace BookServiceLib
         /// <exception cref="ArgumentOutOfRangeException">Thrown when amount of pages is less than 0</exception>
         public int Pages
         {
-            get { return pages; }
+            get
+            {
+                return pages;
+            }
+
             set
             {
                 if (value < 0)
                 {
-                    BookServiceLogger.log.Error("Amount of pages is out of range.");
+                    BookServiceLogger.Log.Error("Amount of pages is out of range.");
                     throw new ArgumentOutOfRangeException("Amount of pages is out of range");
                 }
 
@@ -234,7 +252,7 @@ namespace BookServiceLib
         /// <returns>A string that represents instance</returns>
         public new string ToString()
         {
-            return "";
+            return string.Empty;
         }
 
         #endregion

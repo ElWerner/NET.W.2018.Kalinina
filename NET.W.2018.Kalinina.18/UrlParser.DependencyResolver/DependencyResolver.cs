@@ -1,18 +1,16 @@
 ﻿using Ninject;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using UrlParser.Lib.Interfaces;
 using UrlParser.Lib.Implementation;
+using UrlParser.Lib.Interfaces;
 
 namespace UrlParser.DependencyResolver
 {
+    /// <summary>
+    /// Represents a class that provides resolving dependencies
+    /// </summary>
     public static class DependencyResolver
     {
         /// <summary>
-        /// Binds interfaces to implementaton
+        /// Binds interfaces to implementation
         /// </summary>
         /// <param name="kernel"></param>
         public static void ConfigurateResolver(this IKernel kernel)

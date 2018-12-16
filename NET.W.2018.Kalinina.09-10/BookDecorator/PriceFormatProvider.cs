@@ -8,16 +8,15 @@ using System.Threading.Tasks;
 namespace BookLibrary
 {
     /// <summary>
-    /// Represents a class provides formattin an object to it's string representation with specified format
+    /// Represents a class provides formatting an object to it's string representation with specified format
     /// </summary>
     public class PriceFormatProvider : IFormatProvider, ICustomFormatter
     {
-
         #region Fields
         /// <summary>
         /// A field to hold culture info
         /// </summary>
-        CultureInfo cultureInfo;
+        private CultureInfo cultureInfo;
 
         #endregion
 
@@ -26,7 +25,9 @@ namespace BookLibrary
         /// <summary>
         /// Initializes a new instance of the <see cref="PriceFormatProvider"/> class with culture by default
         /// </summary>
-        public PriceFormatProvider() : this(CultureInfo.CurrentCulture) { }
+        public PriceFormatProvider() : this(CultureInfo.CurrentCulture)
+        {
+        }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="PriceFormatProvider"/> class with specified culture

@@ -7,16 +7,19 @@ using System.Threading.Tasks;
 namespace MatrixLib
 {
     /// <summary>
-    /// A class that represents symmetrix matrix
+    /// A class that represents symmetric matrix
     /// </summary>
     /// <typeparam name="T">Type of matrix elements</typeparam>
     public class SymmetricMatrix<T> : SquareMatrix<T>
     {
+        #region Constructors
         /// <summary>
         /// Initializes a new instance of the <see cref="SymmetricMatrix{T}"/> class with specified size
         /// </summary>
         /// <param name="size">Size of the matrix</param>
-        public SymmetricMatrix(int size) : base(size) { }
+        public SymmetricMatrix(int size) : base(size)
+        {
+        }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="SymmetricMatrix{T}{T}"/> class
@@ -45,6 +48,9 @@ namespace MatrixLib
             this.size = matrix.GetLength(0);
         }
 
+        #endregion
+
+        #region Properties
         /// <summary>
         /// Gets or sets current matrix
         /// </summary>
@@ -53,7 +59,7 @@ namespace MatrixLib
         {
             get
             {
-                return matrix;
+                return this.matrix;
             }
 
             set
@@ -63,12 +69,16 @@ namespace MatrixLib
                     throw new ArgumentException("Specified matrix doesn't match the type.");
                 }
 
-                matrix = value;
+                this.matrix = value;
             }
         }
 
+        #endregion
+
+        #region Public API
+
         /// <summary>
-        /// Chechks if specified matrix matches the symmetric matrix type
+        /// Checks if specified matrix matches the symmetric matrix type
         /// </summary>
         /// <param name="matrix">Specified matrix</param>
         /// <returns>True if matrix is symmetric. False otherwise</returns>
@@ -90,11 +100,11 @@ namespace MatrixLib
             }
 
             int size = matrix.GetLength(0);
-            for(int i = 0; i < size; i++)
+            for (int i = 0; i < size; i++)
             {
                 for (int j = 0; j < size; j++)
                 {
-                    if(!Equals(matrix[i, j], matrix[j, i]))
+                    if (!Equals(matrix[i, j], matrix[j, i]))
                     {
                         return false;
                     }
@@ -103,5 +113,7 @@ namespace MatrixLib
 
             return true;
         }
+
+        #endregion
     }
 }

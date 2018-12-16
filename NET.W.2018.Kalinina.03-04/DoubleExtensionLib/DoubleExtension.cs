@@ -13,7 +13,34 @@ namespace DoubleExtensionLib
     /// </summary>
     public static class DoubleExtension
     {
+        /// <summary>
+        /// A constant that identify size of double variable
+        /// </summary>
         private const int DOUBLESIZE = 64;
+
+        /// <summary>
+        /// Method for converting double-precision floating-point format value to IEEE 754 format string
+        /// </summary>
+        /// <param name="number">The number to convert into binary IEEE 754 format string</param>
+        /// <returns>Binary IEEE 754 format string</returns>
+        public static string ConvertToIEEE754(this double number)
+        {
+            DoubleToInt64 doubleToInt64 = new DoubleToInt64();
+            doubleToInt64.DoubleVariable = number;
+
+            long int64Variable = doubleToInt64.Int64Variable;
+
+            string binaryString = string.Empty;
+
+            long mask = 1;
+            for (int i = 0; i < DOUBLESIZE; i++)
+            {
+                binaryString = (int64Variable & mask) + binaryString;
+                int64Variable = int64Variable >> 1;
+            }
+
+            return binaryString;
+        }
 
         /// <summary>
         /// Structure that helps to convert double value to int64 value
@@ -26,30 +53,6 @@ namespace DoubleExtensionLib
 
             [FieldOffset(0)]
             public long Int64Variable;
-        }
-
-        /// <summary>
-        /// Method for converting double-precision floating-point format value to IEEE 754 format string
-        /// </summary>
-        /// <param name="number">The number to convert into binary IEEE 754 format string</param>
-        /// <returns>Binary IEEE 754 foramt string</returns>
-        public static string ConvertToIEEE754(this double number)
-        {
-            DoubleToInt64 doubleToInt64 = new DoubleToInt64();
-            doubleToInt64.DoubleVariable = number;
-
-            long int64Variable = doubleToInt64.Int64Variable;
-
-            string binaryString = string.Empty;
-
-            long mask = 1;
-            for(int i = 0; i < DOUBLESIZE; i++)
-            {
-                binaryString = (int64Variable & mask) + binaryString;
-                int64Variable = int64Variable >> 1;
-            }
-
-            return binaryString;
         }
     }
 }

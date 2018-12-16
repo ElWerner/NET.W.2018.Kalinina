@@ -12,31 +12,27 @@ namespace MatrixLib
     /// <typeparam name="T">Type of matrix elements</typeparam>
     public class SquareMatrix<T>
     {
-        /// <summary>
-        /// An array that holds matrix elements
-        /// </summary>
-        protected T[,] matrix;
-
+        #region Fields
         /// <summary>
         /// A field to hold matrix size
         /// </summary>
         internal int size;
 
         /// <summary>
-        /// Delegate type whose type must matches receiver's method
+        /// An array that holds matrix elements
         /// </summary>
-        /// <param name="e">Message arguments</param>
-        private delegate void MsgEventHandler(MatrixEventArgs e);
+        protected T[,] matrix;
 
-        /// <summary>
-        /// Occurs when matrix element has been changed
-        /// </summary>
-        private event MsgEventHandler onElementChanging;
+        #endregion
+
+        #region Constructors
 
         /// <summary>
         /// Initializes a new instance of the <see cref="SquareMatrix{T}"/> class
         /// </summary>
-        public SquareMatrix() { }
+        public SquareMatrix()
+        {
+        }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="SquareMatrix{T}"/> class with specified sizeS
@@ -45,13 +41,13 @@ namespace MatrixLib
         /// <exception cref="ArgumentOutOfRangeException">Thrown when matrix size is less or equal to 0</exception>
         public SquareMatrix(int size)
         {
-            if(size < 0)
+            if (size < 0)
             {
                 throw new ArgumentOutOfRangeException("Size of the matrix must be greater than  0.");
             }
 
             EventHandler handler = new EventHandler();
-            onElementChanging += handler.OnNewMessage;
+            OnElementChanging += handler.OnNewMessage;
 
             matrix = new T[size, size];
             this.size = size;
@@ -65,7 +61,7 @@ namespace MatrixLib
         /// <exception cref="ArgumentException">Thrown when specified matrix doesn't match the type</exception>
         public SquareMatrix(T[,] matrix)
         {
-            if(matrix == null)
+            if (matrix == null)
             {
                 throw new ArgumentNullException("Matrix is not initialized.");
             }
@@ -81,11 +77,30 @@ namespace MatrixLib
             }
 
             EventHandler handler = new EventHandler();
-            onElementChanging += handler.OnNewMessage;
+            OnElementChanging += handler.OnNewMessage;
 
             this.matrix = matrix;
             size = matrix.GetLength(0);
         }
+
+        #endregion
+
+        #region Delegates
+
+        /// <summary>
+        /// Delegate type whose type must matches receiver's method
+        /// </summary>
+        /// <param name="e">Message arguments</param>
+        private delegate void MsgEventHandler(MatrixEventArgs e);
+
+        /// <summary>
+        /// Occurs when matrix element has been changed
+        /// </summary>
+        private event MsgEventHandler OnElementChanging;
+
+        #endregion
+
+        #region Properties
 
         /// <summary>
         /// Gets or sets current matrix
@@ -131,7 +146,7 @@ namespace MatrixLib
         {
             get
             {
-                if(i < 0 || j < 0 || i > Size || j > Size)
+                if (i < 0 || j < 0 || i > Size || j > Size)
                 {
                     throw new ArgumentOutOfRangeException("Index is out of range.");
                 }
@@ -141,35 +156,40 @@ namespace MatrixLib
 
             set
             {
-
                 if (i < 0 || j < 0 || i > Size || j > Size)
                 {
                     throw new ArgumentOutOfRangeException("Index is out of range.");
                 }
 
-                onElementChanging?.Invoke(new MatrixEventArgs(i, j));
+                OnElementChanging?.Invoke(new MatrixEventArgs(i, j));
                 matrix[i, j] = value;
             }
         }
 
+        #endregion
+
+        #region Public API
+
         /// <summary>
-        /// Chechks if specified matrix matches the square matrix type
+        /// Checks if specified matrix matches the square matrix type
         /// </summary>
         /// <param name="matrix">Specified matrix</param>
         /// <returns>True if matrix is square. False otherwise</returns>
         public static bool IsSquareMatrix(T[,] matrix)
         {
-            if(matrix == null)
+            if (matrix == null)
             {
                 return false;
             }
 
-            if(matrix.Length == 0)
+            if (matrix.Length == 0)
             {
                 return false;
             }
 
-            return (matrix.GetLength(0) == matrix.GetLength(1));
+            return matrix.GetLength(0) == matrix.GetLength(1);
         }
+
+        #endregion
     }
 }

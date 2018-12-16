@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BinarySearchTreeLib
 {
@@ -13,34 +10,64 @@ namespace BinarySearchTreeLib
     /// <typeparam name="T">Data type</typeparam>
     public class TreeNode<T>
     {
+        #region Fields
         /// <summary>
         /// Tree node data
         /// </summary>
-        public T data;
+        private T data;
 
         /// <summary>
         /// Reference to the left node
         /// </summary>
-        public TreeNode<T> leftNode;
+        private TreeNode<T> leftNode;
 
         /// <summary>
         /// Reference to the right node
         /// </summary>
-        public TreeNode<T> rightNode;
+        private TreeNode<T> rightNode;
 
         /// <summary>
         /// Reference to the parent node
         /// </summary>
-        public TreeNode<T> parentNode;
+        private TreeNode<T> parentNode;
 
+        #endregion
+
+        #region Constructors
         /// <summary>
         /// Initializes a new instance of the <see cref=TreeNode{T}/> class
         /// </summary>
         /// <param name="data"></param>
         public TreeNode(T data)
         {
-            this.data = data;
+            this.Data = data;
         }
+
+        #endregion
+
+        #region Properties
+
+        /// <summary>
+        /// Gets or sets data
+        /// </summary>
+        public T Data { get => data; set => data = value; }
+
+        /// <summary>
+        /// Gets or sets left node
+        /// </summary>
+        public TreeNode<T> LeftNode { get => leftNode; set => leftNode = value; }
+
+        /// <summary>
+        /// Gets or sets right node
+        /// </summary>
+        public TreeNode<T> RightNode { get => rightNode; set => rightNode = value; }
+
+        /// <summary>
+        /// Gets or sets parent node
+        /// </summary>
+        public TreeNode<T> ParentNode { get => parentNode; set => parentNode = value; }
+
+        #endregion
     }
 
     /// <summary>
@@ -49,36 +76,40 @@ namespace BinarySearchTreeLib
     /// <typeparam name="T">Data type</typeparam>
     public class BinaryTree<T> : IEnumerable<T>
     {
+        #region Fields
         /// <summary>
         /// Tree root
         /// </summary>
-        public TreeNode<T> rootNode;
+        private TreeNode<T> rootNode;
 
         /// <summary>
         /// Provides method that compares two objects with the same type
         /// </summary>
-        public Comparison<T> comparer;
+        private Comparison<T> comparer;
 
+        #endregion
+
+        #region Constructors
         /// <summary>
         /// Initializes a new instance of the <see cref="BinaryTree{T}"/> class
         /// </summary>
         /// <param name="collection">Collection of data</param>
-        /// <param name="comparison">Comparision method</param>
-        /// <exception cref="ArgumentNullException">Thrown when data collection or comparision method is null</exception>
+        /// <param name="comparison">Comparison method</param>
+        /// <exception cref="ArgumentNullException">Thrown when data collection or comparison method is null</exception>
         public BinaryTree(IEnumerable<T> collection, Comparison<T> comparison)
         {
-            if(collection == null )
+            if (collection == null)
             {
                 throw new ArgumentNullException("Data collection is null.");
             }
 
-            if(comparison == null)
+            if (comparison == null)
             {
                 throw new ArgumentNullException("Comparision method is null.");
             }
 
-            rootNode = null;
-            comparer = comparison;
+            RootNode = null;
+            Comparer = comparison;
 
             foreach (var element in collection)
             {
@@ -87,13 +118,30 @@ namespace BinarySearchTreeLib
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="BinaryTree{T}"/> class with default comparision method
+        /// Initializes a new instance of the <see cref="BinaryTree{T}"/> class with default comparison method
         /// </summary>
         /// <param name="collection">Data collection</param>
         public BinaryTree(IEnumerable<T> collection) : this(collection, Comparer<T>.Default.Compare)
         {
         }
 
+        #endregion
+
+        #region Properties
+
+        /// <summary>
+        /// Gets or sets root node
+        /// </summary>
+        public TreeNode<T> RootNode { get => rootNode; set => rootNode = value; }
+
+        /// <summary>
+        /// Gets or sets comparer
+        /// </summary>
+        public Comparison<T> Comparer { get => comparer; set => comparer = value; }
+
+        #endregion
+
+        #region Public API
         /// <summary>
         /// Inserts new node into binary tree
         /// </summary>
@@ -102,37 +150,36 @@ namespace BinarySearchTreeLib
         {
             TreeNode<T> newNode = new TreeNode<T>(data);
 
-            if(rootNode == null)
+            if (RootNode == null)
             {
-                rootNode = newNode;
+                RootNode = newNode;
             }
             else
             {
-                TreeNode<T> currentNode = rootNode;
+                TreeNode<T> currentNode = RootNode;
 
                 TreeNode<T> parentNode = null;
-                while(currentNode != null)
+                while (currentNode != null)
                 {
                     parentNode = currentNode;
-                    if (comparer(data, currentNode.data) < 0)
+                    if (Comparer(data, currentNode.Data) < 0)
                     {
-
-                        currentNode = currentNode.leftNode;
-                        if(currentNode == null)
+                        currentNode = currentNode.LeftNode;
+                        if (currentNode == null)
                         {
-                            parentNode.leftNode = newNode;
+                            parentNode.LeftNode = newNode;
                         }
                     }
-                    else if (comparer(data, currentNode.data) == 0)
+                    else if (Comparer(data, currentNode.Data) == 0)
                     {
-                        currentNode.data = data;
+                        currentNode.Data = data;
                     }
                     else
                     {
-                        currentNode = currentNode.rightNode;
+                        currentNode = currentNode.RightNode;
                         if (currentNode == null)
                         {
-                            parentNode.rightNode = newNode;
+                            parentNode.RightNode = newNode;
                         }
                     }
                 }
@@ -140,32 +187,32 @@ namespace BinarySearchTreeLib
         }
 
         /// <summary>
-        /// Chechks if current binary tree contains specified element
+        /// Checks if current binary tree contains specified element
         /// </summary>
         /// <param name="element">Element to find</param>
         /// <returns>True if binary tree contains element. False otherwise</returns>
         public bool Contains(T element)
         {
-            if(rootNode == null)
+            if (RootNode == null)
             {
                 return false;
             }
 
-            TreeNode<T> currentNode = rootNode;
+            TreeNode<T> currentNode = RootNode;
 
-            while(currentNode != null)
+            while (currentNode != null)
             {
-                if(comparer(element, currentNode.data) == 0)
+                if (Comparer(element, currentNode.Data) == 0)
                 {
                     return true;
                 }
-                else if(comparer(element, currentNode.data) < 0)
+                else if (Comparer(element, currentNode.Data) < 0)
                 {
-                    currentNode = currentNode.leftNode;
+                    currentNode = currentNode.LeftNode;
                 }
                 else
                 {
-                    currentNode = currentNode.rightNode;
+                    currentNode = currentNode.RightNode;
                 }
             }
 
@@ -175,121 +222,127 @@ namespace BinarySearchTreeLib
         /// <summary>
         /// Provides infix traversal of the binary tree
         /// </summary>
-        /// <returns>Enumareble infix traverse</returns>
+        /// <returns>Enumerable infix traverse</returns>
         public IEnumerable<T> InOrder()
         {
-            return InOrder(rootNode);
+            return InOrder(RootNode);
         }
 
         /// <summary>
         /// Provides prefix traversal of the binary tree
         /// </summary>
-        /// <returns>Enumareble prefix traverse</returns>
+        /// <returns>Enumerable prefix traverse</returns>
         public IEnumerable<T> PreOrder()
         {
-            return PreOrder(rootNode);
+            return PreOrder(RootNode);
         }
 
         /// <summary>
         /// Provides postfix traversal of the binary tree
         /// </summary>
-        /// <returns>Enumareble postfix traverse</returns>
+        /// <returns>Enumerable postfix traverse</returns>
         public IEnumerable<T> PostOrder()
         {
-            return PostOrder(rootNode);
+            return PostOrder(RootNode);
         }
 
         /// <summary>
-        /// Provides infix traversal of the binary tree
+        /// Returns enumerable infix traversal of the binary tree
         /// </summary>
-        /// <returns>Enumareble infix traverse</returns>
-        private IEnumerable<T> InOrder(TreeNode<T> currentNode)
-        {
-            if(currentNode.leftNode != null)
-            {
-                foreach(var node in InOrder(currentNode.leftNode))
-                {
-                    yield return node;
-                }
-            }
-
-            yield return currentNode.data;
-
-            if (currentNode.rightNode != null)
-            {
-                foreach (var node in InOrder(currentNode.rightNode))
-                {
-                    yield return node;
-                }
-            }
-        }
-
-        /// <summary>
-        /// Provides prefix traversal of the binary tree
-        /// </summary>
-        /// <returns>Enumareble prefix traverse</returns>
-        private IEnumerable<T> PreOrder(TreeNode<T> currentNode)
-        {
-            yield return currentNode.data;
-
-            if (currentNode.leftNode != null)
-            {
-                foreach (var node in PreOrder(currentNode.leftNode))
-                {
-                    yield return node;
-                }
-            }
-
-            if (currentNode.rightNode != null)
-            {
-                foreach (var node in PreOrder(currentNode.rightNode))
-                {
-                    yield return node;
-                }
-            }
-        }
-
-        /// <summary>
-        /// Provides postfix traversal of the binary tree
-        /// </summary>
-        /// <returns>Enumareble postfix traverse</returns>
-        private IEnumerable<T> PostOrder(TreeNode<T> currentNode)
-        {
-            if (currentNode.leftNode != null)
-            {
-                foreach (var node in PostOrder(currentNode.leftNode))
-                {
-                    yield return node;
-                }
-            }
-
-            if (currentNode.rightNode != null)
-            {
-                foreach (var node in PostOrder(currentNode.rightNode))
-                {
-                    yield return node;
-                }
-            }
-
-            yield return currentNode.data;
-        }
-
-        /// <summary>
-        ///Returns enumerable infix traversal of the binary tree
-        /// </summary>
-        /// <returns>enumerable infix traversal</returns>
+        /// <returns>Enumerable infix traversal</returns>
         public IEnumerator<T> GetEnumerator()
         {
             return InOrder().GetEnumerator();
         }
 
         /// <summary>
-        /// Returns enumerotor for the binary tree
+        /// Returns enumerator for the binary tree
         /// </summary>
         /// <returns>Enumerator for the binary tree</returns>
         IEnumerator IEnumerable.GetEnumerator()
         {
             return GetEnumerator();
         }
+
+        #endregion
+
+        #region Private API
+
+        /// <summary>
+        /// Provides infix traversal of the binary tree
+        /// </summary>
+        /// <returns>Enumerable infix traverse</returns>
+        private IEnumerable<T> InOrder(TreeNode<T> currentNode)
+        {
+            if (currentNode.LeftNode != null)
+            {
+                foreach (var node in InOrder(currentNode.LeftNode))
+                {
+                    yield return node;
+                }
+            }
+
+            yield return currentNode.Data;
+
+            if (currentNode.RightNode != null)
+            {
+                foreach (var node in InOrder(currentNode.RightNode))
+                {
+                    yield return node;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Provides prefix traversal of the binary tree
+        /// </summary>
+        /// <returns>Enumerable prefix traverse</returns>
+        private IEnumerable<T> PreOrder(TreeNode<T> currentNode)
+        {
+            yield return currentNode.Data;
+
+            if (currentNode.LeftNode != null)
+            {
+                foreach (var node in PreOrder(currentNode.LeftNode))
+                {
+                    yield return node;
+                }
+            }
+
+            if (currentNode.RightNode != null)
+            {
+                foreach (var node in PreOrder(currentNode.RightNode))
+                {
+                    yield return node;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Provides postfix traversal of the binary tree
+        /// </summary>
+        /// <returns>Enumerable postfix traverse</returns>
+        private IEnumerable<T> PostOrder(TreeNode<T> currentNode)
+        {
+            if (currentNode.LeftNode != null)
+            {
+                foreach (var node in PostOrder(currentNode.LeftNode))
+                {
+                    yield return node;
+                }
+            }
+
+            if (currentNode.RightNode != null)
+            {
+                foreach (var node in PostOrder(currentNode.RightNode))
+                {
+                    yield return node;
+                }
+            }
+
+            yield return currentNode.Data;
+        }
+
+        #endregion
     }
 }

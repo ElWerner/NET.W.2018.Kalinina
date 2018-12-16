@@ -28,11 +28,19 @@ namespace MathAlgorithmsLib
         public static int EuclideanAlgorithm(out long time, params int[] numbers)
         {
             if (numbers == null)
+            {
                 throw new ArgumentNullException("Numbers are not initialized.");
+            }
+
             if (numbers.Length == 0)
+            {
                 throw new ArgumentException("There are no numbers for finding the GCD of.");
+            }
+
             if (numbers.Length == 1)
+            {
                 throw new ArgumentException("It's impossible to find GCD of one number.");
+            }
 
             Stopwatch stopwatch = Stopwatch.StartNew();
             int gcdResult = EuclidGCD(numbers);
@@ -56,11 +64,19 @@ namespace MathAlgorithmsLib
         public static int BinaryEuclideanAlgorithm(out long time, params int[] numbers)
         {
             if (numbers == null)
+            {
                 throw new ArgumentNullException("Numbers are not initialized.");
+            }
+
             if (numbers.Length == 0)
+            {
                 throw new ArgumentException("There are no numbers for finding the GCD of.");
+            }
+
             if (numbers.Length == 1)
+            {
                 throw new ArgumentException("It's impossible to find GCD of one number.");
+            }
 
             Stopwatch stopwatch = Stopwatch.StartNew();
             int gcdResult = BinaryEuclidGCD(numbers);
@@ -83,7 +99,9 @@ namespace MathAlgorithmsLib
             int nod = FindGCD(numbers[0], numbers[1]);
 
             if (numbers.Length == 2)
+            {
                 return nod;
+            }
 
             for (int i = 2; i < numbers.Length; i++)
             {
@@ -102,14 +120,23 @@ namespace MathAlgorithmsLib
         private static int FindGCD(int a, int b)
         {
             if (b == 0)
+            {
                 return Math.Abs(a);
+            }
+
             if (a == 0)
+            {
                 return Math.Abs(b);
+            }
 
             if (a > b)
+            {
                 return FindGCD(a % b, Math.Abs(b));
+            }
             else
+            {
                 return FindGCD(Math.Abs(a), b % a);
+            }
         }
 
         /// <summary>
@@ -122,7 +149,9 @@ namespace MathAlgorithmsLib
             int nod = FindBinaryGCD(numbers[0], numbers[1]);
 
             if (numbers.Length == 2)
+            {
                 return nod;
+            }
 
             for (int i = 2; i < numbers.Length; i++)
             {
@@ -141,24 +170,41 @@ namespace MathAlgorithmsLib
         private static int FindBinaryGCD(int a, int b)
         {
             if (a == b)
+            {
                 return a;
+            }
+
             if (a == 0)
+            {
                 return Math.Abs(b);
+            }
+
             if (b == 0)
+            {
                 return Math.Abs(a);
+            }
 
             if ((~a & 1) != 0)
             {
                 if ((b & 1) != 0)
+                {
                     return FindBinaryGCD(a >> 1, Math.Abs(b));
+                }
                 else
+                {
                     return FindBinaryGCD(a >> 1, b >> 1) << 1;
+                }
             }
 
             if ((~b & 1) != 0)
+            {
                 return FindBinaryGCD(Math.Abs(a), b >> 1);
+            }
+
             if (a > b)
+            {
                 return FindBinaryGCD((a - b) >> 1, Math.Abs(b));
+            }
 
             return FindBinaryGCD((b - a) >> 1, Math.Abs(a));
         }

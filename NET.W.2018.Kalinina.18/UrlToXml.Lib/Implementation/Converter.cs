@@ -1,9 +1,7 @@
-﻿using NLog;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using NLog;
 using UrlParser.Lib.Interfaces;
 
 namespace UrlParser.Lib.Implementation
@@ -13,10 +11,15 @@ namespace UrlParser.Lib.Implementation
     /// </summary>
     public class Converter : IConverter
     {
+        #region Fields
         /// <summary>
         /// A field that holds logger variable
         /// </summary>
-        public static Logger log = LogManager.GetCurrentClassLogger();
+        public static Logger Log = LogManager.GetCurrentClassLogger();
+
+        #endregion
+
+        #region Public API
 
         /// <summary>
         /// Converts list of strings to uri strings, if possible
@@ -26,13 +29,17 @@ namespace UrlParser.Lib.Implementation
         /// <exception cref="ArgumentNullException">Thrown when list of strings is empty or not initialized</exception>
         public IEnumerable<Uri> Convert(IEnumerable<string> list)
         {
-            if(list == null || list.Count<string>() == 0)
+            if (list == null || list.Count<string>() == 0)
             {
                 throw new ArgumentNullException("List of url strings is not initialized.");
             }
 
             return ConvertList(list);
         }
+
+        #endregion
+
+        #region Private API
 
         /// <summary>
         /// Converts list of strings to uri strings, if possible, 
@@ -54,11 +61,13 @@ namespace UrlParser.Lib.Implementation
                 }
                 else
                 {
-                    log.Error($"String was not processed: {element}.");
+                    Log.Error($"String was not processed: {element}.");
                 }
             }
 
             return uris;
         }
+
+        #endregion
     }
 }

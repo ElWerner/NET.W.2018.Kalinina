@@ -9,12 +9,22 @@ namespace QueueLib
     /// <summary>
     /// Represents a class providing basic operations with queue
     /// </summary>
-    /// <typeparam name="T">Type of queue elemets</typeparam>
+    /// <typeparam name="T">Type of queue elements</typeparam>
     public class Queue<T>
     {
-        private System.Collections.Generic.Queue<int> t;
+        #region Constants
+
         /// <summary>
-        /// An array to hold queue elemets
+        /// Default queue size
+        /// </summary>
+        private const int DEFAULTSIZE = 32;
+
+        #endregion
+
+        #region Fields
+
+        /// <summary>
+        /// An array to hold queue elements
         /// </summary>
         private T[] container;
 
@@ -33,10 +43,9 @@ namespace QueueLib
         /// </summary>
         private int size;
 
-        /// <summary>
-        /// Default queue size
-        /// </summary>
-        private const int DEFAULTSIZE = 32;
+        #endregion
+
+        #region Constructors
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Queue{T}"/> class with default capacity
@@ -52,7 +61,7 @@ namespace QueueLib
         /// <exception cref="ArgumentOutOfRangeException">Thrown when capacity is less or equal than 0</exception>
         public Queue(int capacity)
         {
-            if(capacity <= 0)
+            if (capacity <= 0)
             {
                 throw new ArgumentOutOfRangeException("Capacuty must be greater than 0.");
             }
@@ -70,24 +79,28 @@ namespace QueueLib
         /// <exception cref="ArgumentNullException">Thrown when elements are not initialized</exception>
         public Queue(params T[] elements)
         {
-            if(elements == null)
+            if (elements == null)
             {
                 throw new ArgumentNullException("Elements is null.");
             }
 
-            if(elements.Length == 0)
+            if (elements.Length == 0)
             {
                 throw new ArgumentException("Elements is null.");
             }
 
             container = new T[elements.Length];
-            for(int i = 0; i < elements.Length; i++)
+            for (int i = 0; i < elements.Length; i++)
             {
                 Enqueue(elements[i]);
             }
 
             size = elements.Length;
         }
+
+        #endregion
+
+        #region Properties
 
         /// <summary>
         /// Gets amount of elements in the queue
@@ -110,13 +123,14 @@ namespace QueueLib
         {
             get
             {
-                if(index < head || index > tail)
+                if (index < head || index > tail)
                 {
                     throw new ArgumentOutOfRangeException("Index is out of range.");
                 }
 
                 return container[index];
             }
+
             set
             {
                 if (index < head || index > tail)
@@ -128,13 +142,17 @@ namespace QueueLib
             }
         }
 
+        #endregion
+
+        #region Public API
+
         /// <summary>
         /// Adds new element at the queue tail
         /// </summary>
         /// <param name="element">Added element</param>
-        public void Enqueue (T element)
+        public void Enqueue(T element)
         {
-            if(size == container.Length)
+            if (size == container.Length)
             {
                 SetCapacity(DEFAULTSIZE * 2);
             }
@@ -179,13 +197,17 @@ namespace QueueLib
         }
 
         /// <summary>
-        /// Retursn queue iterator
+        /// Returns queue iterator
         /// </summary>
         /// <returns>Queue iterator</returns>
         public QueueIterator<T> Iterator()
         {
             return new QueueIterator<T>(this);
         }
+
+        #endregion
+
+        #region Private API
 
         /// <summary>
         /// Creates new queue with increased size
@@ -201,5 +223,6 @@ namespace QueueLib
             tail = size;
         }
 
+        #endregion
     }
 }

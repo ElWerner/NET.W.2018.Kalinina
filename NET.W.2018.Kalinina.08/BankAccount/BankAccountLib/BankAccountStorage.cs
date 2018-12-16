@@ -12,10 +12,15 @@ namespace BankAccountLib
     /// </summary>
     public class BankAccountStorage : IStorage<BankAccount>
     {
+        #region Fields
         /// <summary>
         /// Field to hold path to the file
         /// </summary>
         private string filePath;
+
+        #endregion
+
+        #region Public API
 
         /// <summary>
         /// Initializes a new instance of the <see cref="BankAccountStorage"/> class with specified 
@@ -76,11 +81,15 @@ namespace BankAccountLib
             WriteAccounts(accounts);
         }
 
+        #endregion
+
+        #region Private API
+
         /// <summary>
         /// Reads accounts from file into list of accounts
         /// </summary>
         /// <returns>List of accounts</returns>
-        /// <exception cref="IOException">Thrown when files reading error occured</exception>
+        /// <exception cref="IOException">Thrown when files reading error occurred</exception>
         private List<BankAccount> ReadAccounts()
         {
             List<BankAccount> accounts = new List<BankAccount>();
@@ -99,8 +108,14 @@ namespace BankAccountLib
                         BancAccountType type = (BancAccountType)reader.ReadInt32();
                         bool isClosed = reader.ReadBoolean();
 
-                        BankAccount book = new BankAccount(number, firstName, lastName, invoiceAmount, bonusScores,
-                                               type, isClosed);
+                        BankAccount book = new BankAccount(
+                            number, 
+                            firstName, 
+                            lastName, 
+                            invoiceAmount, 
+                            bonusScores,
+                            type, 
+                            isClosed);
                         accounts.Add(book);
                     }
 
@@ -117,7 +132,7 @@ namespace BankAccountLib
         /// Writes accounts from list into the file
         /// </summary>
         /// <param name="accounts">List of accounts</param>
-        /// <exception cref="IOException">Thrown when files writing error occured</exception>
+        /// <exception cref="IOException">Thrown when files writing error occurred</exception>
         private void WriteAccounts(List<BankAccount> accounts)
         {
             try
@@ -141,5 +156,7 @@ namespace BankAccountLib
                 throw new IOException("Unable to write into the file");
             }
         }
+
+        #endregion
     }
 }

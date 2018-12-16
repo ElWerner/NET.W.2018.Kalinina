@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace PolynomialLib
 {
     /// <summary>
-    /// Represent a class providing basic polynomial arithmetics
+    /// Represent a class providing basic polynomial arithmetic
     /// </summary>
     public sealed class Polynomial
     {
@@ -97,13 +97,15 @@ namespace PolynomialLib
         /// </summary>
         /// <param name="index">The index of the coefficient</param>
         /// <returns>The coefficient with specified index</returns>
-        /// <exception cref="IndexOutOfRangeException">Thrown when index is out of range</exception>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when index is out of range</exception>
         public double this[int index]
         {
             get
             {
                 if (index < 0 || index >= this.coefficients.Length)
-                    throw new IndexOutOfRangeException("Index is out of range.");
+                {
+                    throw new ArgumentOutOfRangeException("Index is out of range.");
+                }
 
                 return coefficients[index];
             }
@@ -111,7 +113,9 @@ namespace PolynomialLib
             set
             {
                 if (index < 0 || index >= this.coefficients.Length)
-                    throw new IndexOutOfRangeException("Index is out of range.");
+                {
+                    throw new ArgumentOutOfRangeException("Index is out of range.");
+                }
 
                 coefficients[index] = value;
             }
@@ -119,49 +123,28 @@ namespace PolynomialLib
 
         #endregion
 
-        #region API
+        #region Public API
+
         /// <summary>
         /// Compares two polynomials
         /// </summary>
-        /// <param name="firstPolynom">First polynomial</param>
-        /// <param name="secondPolynom">Second polynomial</param>
+        /// <param name="firstPolynomial">First polynomial</param>
+        /// <param name="secondPolynomial">Second polynomial</param>
         /// <returns>The biggest polynomial</returns>
-        public static Polynomial FindBiggestPolynomial(Polynomial firstPolynom, Polynomial secondPolynom)
+        /// <exception cref="ArgumentNullException">Thrown when first or second polynomial is not initialized</exception>
+        public static Polynomial FindBiggestPolynomial(Polynomial firstPolynomial, Polynomial secondPolynomial)
         {
-            double[] resultantPolynomCoefs;
-
-            int firstPolynLength = firstPolynom.CoeffsCount;
-            int secondPolynLength = secondPolynom.CoeffsCount;
-
-            if (firstPolynLength > secondPolynLength)
+            if (firstPolynomial == null)
             {
-                resultantPolynomCoefs = new double[firstPolynLength];
-                Array.Copy(firstPolynom.GetCoefficients, resultantPolynomCoefs, firstPolynLength);
-            }
-            else if (firstPolynLength < secondPolynLength)
-            {
-                resultantPolynomCoefs = new double[secondPolynLength];
-                Array.Copy(secondPolynom.GetCoefficients, resultantPolynomCoefs, secondPolynLength);
-            }
-            else
-            {
-                resultantPolynomCoefs = new double[firstPolynLength];
-                for (int i = 0; i < firstPolynLength; i++)
-                {
-                    if(firstPolynom[i] > secondPolynom[i])
-                    {
-                        Array.Copy(firstPolynom.GetCoefficients, resultantPolynomCoefs, secondPolynLength);
-                        break;
-                    }
-                    else if (firstPolynom[i] < secondPolynom[i])
-                    {
-                        Array.Copy(secondPolynom.GetCoefficients, resultantPolynomCoefs, secondPolynLength);
-                        break;
-                    }
-                }
+                throw new ArgumentNullException($"{nameof(firstPolynomial)} is not initialized.");
             }
 
-            return new Polynomial(resultantPolynomCoefs);
+            if (secondPolynomial == null)
+            {
+                throw new ArgumentNullException($"{nameof(secondPolynomial)} is not initialized.");
+            }
+
+            return FindBiggestPolynom(firstPolynomial, secondPolynomial);
         }
 
         /// <summary>
@@ -170,24 +153,20 @@ namespace PolynomialLib
         /// <param name="firstPolynomial">First polynomial</param>
         /// <param name="secondPolynomial">Second polynomial</param>
         /// <returns>The sum of two polynomials</returns>
+        /// <exception cref="ArgumentNullException">Thrown when first or second polynomial is not initialized</exception>
         public static Polynomial operator +(Polynomial firstPolynomial, Polynomial secondPolynomial)
         {
-            Polynomial resultantPolinomial = FindBiggestPolynomial(firstPolynomial, secondPolynomial);
-
-            for (int i = resultantPolinomial.CoeffsCount - 1; i >= 0; i--)
+            if (firstPolynomial == null)
             {
-                double a = 0, b = 0;
-
-                if (i < firstPolynomial.CoeffsCount)
-                    a = firstPolynomial[i];
-
-                if (i < secondPolynomial.CoeffsCount)
-                    b = secondPolynomial[i];
-
-                resultantPolinomial[i] = a + b;
+                throw new ArgumentNullException($"{nameof(firstPolynomial)} is not initialized.");
             }
 
-            return resultantPolinomial;
+            if (secondPolynomial == null)
+            {
+                throw new ArgumentNullException($"{nameof(secondPolynomial)} is not initialized.");
+            }
+
+            return FindSumm(firstPolynomial, secondPolynomial);
         }
 
         /// <summary>
@@ -196,24 +175,20 @@ namespace PolynomialLib
         /// <param name="firstPolynomial">First polynomial</param>
         /// <param name="secondPolynomial">Second polynomial</param>
         /// <returns>The result of subtracting</returns>
+        /// <exception cref="ArgumentNullException">Thrown when first or second polynomial is not initialized</exception>
         public static Polynomial operator -(Polynomial firstPolynomial, Polynomial secondPolynomial)
         {
-            Polynomial resultantPolinomial = FindBiggestPolynomial(firstPolynomial, secondPolynomial);
-
-            for (int i = 0; i < resultantPolinomial.CoeffsCount; i++)
+            if (firstPolynomial == null)
             {
-                double a = 0, b = 0;
-
-                if (i < firstPolynomial.CoeffsCount)
-                    a = firstPolynomial[i];
-
-                if (i < secondPolynomial.CoeffsCount)
-                    b = secondPolynomial[i];
-
-                resultantPolinomial[i] = a - b;
+                throw new ArgumentNullException($"{nameof(firstPolynomial)} is not initialized.");
             }
 
-            return resultantPolinomial;
+            if (secondPolynomial == null)
+            {
+                throw new ArgumentNullException($"{nameof(secondPolynomial)} is not initialized.");
+            }
+
+            return FindDifference(firstPolynomial, secondPolynomial);
         }
 
         /// <summary>
@@ -221,21 +196,21 @@ namespace PolynomialLib
         /// </summary>
         /// <param name="firstPolynomial">First polynomial</param>
         /// <param name="secondPolynomial">Second polynomial</param>
-        /// <returns>The result of myltiplying</returns>
+        /// <returns>The result of multiplying</returns>
+        /// <exception cref="ArgumentNullException">Thrown when first or second polynomial is not initialized</exception>
         public static Polynomial operator *(Polynomial firstPolynomial, Polynomial secondPolynomial)
         {
-            Polynomial resultantPolinomial = new Polynomial(firstPolynomial.CoeffsCount +
-                secondPolynomial.CoeffsCount - 1);
-
-            for (int i = 0; i < firstPolynomial.CoeffsCount; i++)
+            if (firstPolynomial == null)
             {
-                for (int j = 0; j < secondPolynomial.CoeffsCount; j++)
-                {
-                    resultantPolinomial[i + j] += firstPolynomial[i] * secondPolynomial[j];
-                }
+                throw new ArgumentNullException($"{nameof(firstPolynomial)} is not initialized.");
             }
 
-            return resultantPolinomial;
+            if (secondPolynomial == null)
+            {
+                throw new ArgumentNullException($"{nameof(secondPolynomial)} is not initialized.");
+            }
+
+            return FindMultiplicationWithPolynomial(firstPolynomial, secondPolynomial);
         }
 
         /// <summary>
@@ -244,16 +219,15 @@ namespace PolynomialLib
         /// <param name="polynomial">Polynomial to multiply</param>
         /// <param name="number">Number to multiply</param>
         /// <returns>The result of multiplying</returns>
+        /// <exception cref="ArgumentNullException">Thrown when polynomial is not initialized</exception>
         public static Polynomial operator *(Polynomial polynomial, double number)
         {
-            Polynomial resultantPolinomial = new Polynomial(polynomial.CoeffsCount);
-
-            for (int i = 0; i < polynomial.CoeffsCount; i++)
+            if (polynomial == null)
             {
-                resultantPolinomial[i] = polynomial[i] * number;
+                throw new ArgumentNullException($"{nameof(polynomial)} is not initialized.");
             }
 
-            return resultantPolinomial;
+            return FindMultiplicationWithNumber(polynomial, number);
         }
 
         /// <summary>
@@ -262,18 +236,20 @@ namespace PolynomialLib
         /// <param name="firstPolynomial">First polynomial</param>
         /// <param name="secondPolynomial">Second polynomial</param>
         /// <returns>True if polynomials have the same coefficients. False otherwise.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when first or second polynomial is not initialized</exception>
         public static bool operator ==(Polynomial firstPolynomial, Polynomial secondPolynomial)
         {
-            if (firstPolynomial.CoeffsCount != secondPolynomial.CoeffsCount)
-                return false;
-
-            for (int i = 0; i < firstPolynomial.CoeffsCount; i++)
+            if (firstPolynomial == null)
             {
-                if (Math.Abs(firstPolynomial[i] - secondPolynomial[i]) > DELTA)
-                    return false;
+                throw new ArgumentNullException($"{nameof(firstPolynomial)} is not initialized.");
             }
 
-            return true;
+            if (secondPolynomial == null)
+            {
+                throw new ArgumentNullException($"{nameof(secondPolynomial)} is not initialized.");
+            }
+
+            return ComparePolynomils(firstPolynomial, secondPolynomial);
         }
 
         /// <summary>
@@ -294,13 +270,7 @@ namespace PolynomialLib
         /// <returns>The result of evaluating</returns>
         public double Evaluate(double point)
         {
-            double result = 0;
-            for (int i = 0; i < CoeffsCount; i++)
-            {
-                result += coefficients[i] * point;
-            }
-
-            return result;
+            return EvaluateInPoint(point);
         }
 
         /// <summary>
@@ -324,9 +294,13 @@ namespace PolynomialLib
                 }
 
                 if (coefficients[i - 1] < 0)
+                {
                     sign = "-";
+                }
                 else
+                {
                     sign = "+";
+                }
 
                 polimonial += Math.Abs(coefficients[i]) + "x^" + degree + sign;
                 degree--;
@@ -360,7 +334,9 @@ namespace PolynomialLib
         public override bool Equals(object obj)
         {
             if (obj == null)
+            {
                 return false;
+            }
 
             var polynomial = obj as Polynomial;
 
@@ -368,6 +344,193 @@ namespace PolynomialLib
         }
 
         #endregion
+
+        #region Private API
+
+        /// <summary>
+        /// Compares two polynomials
+        /// </summary>
+        /// <param name="firstPolynomial">First polynomial</param>
+        /// <param name="secondPolynomial">Second polynomial</param>
+        /// <returns>The biggest polynomial</returns>
+        private static Polynomial FindBiggestPolynom(Polynomial firstPolynomial, Polynomial secondPolynomial)
+        {
+            double[] resultantPolynomCoefs;
+
+            int firstPolynLength = firstPolynomial.CoeffsCount;
+            int secondPolynLength = secondPolynomial.CoeffsCount;
+
+            if (firstPolynLength > secondPolynLength)
+            {
+                resultantPolynomCoefs = new double[firstPolynLength];
+                Array.Copy(firstPolynomial.GetCoefficients, resultantPolynomCoefs, firstPolynLength);
+            }
+            else if (firstPolynLength < secondPolynLength)
+            {
+                resultantPolynomCoefs = new double[secondPolynLength];
+                Array.Copy(secondPolynomial.GetCoefficients, resultantPolynomCoefs, secondPolynLength);
+            }
+            else
+            {
+                resultantPolynomCoefs = new double[firstPolynLength];
+                for (int i = 0; i < firstPolynLength; i++)
+                {
+                    if (firstPolynomial[i] > secondPolynomial[i])
+                    {
+                        Array.Copy(firstPolynomial.GetCoefficients, resultantPolynomCoefs, secondPolynLength);
+                        break;
+                    }
+                    else if (firstPolynomial[i] < secondPolynomial[i])
+                    {
+                        Array.Copy(secondPolynomial.GetCoefficients, resultantPolynomCoefs, secondPolynLength);
+                        break;
+                    }
+                }
+            }
+
+            return new Polynomial(resultantPolynomCoefs);
+        }
+
+        /// <summary>
+        /// Summarizes two polynomials
+        /// </summary>
+        /// <param name="firstPolynomial">First polynomial</param>
+        /// <param name="secondPolynomial">Second polynomial</param>
+        /// <returns>The sum of two polynomials</returns>
+        private static Polynomial FindSumm(Polynomial firstPolynomial, Polynomial secondPolynomial)
+        {
+            Polynomial resultantPolinomial = FindBiggestPolynomial(firstPolynomial, secondPolynomial);
+
+            for (int i = resultantPolinomial.CoeffsCount - 1; i >= 0; i--)
+            {
+                double a = 0, b = 0;
+
+                if (i < firstPolynomial.CoeffsCount)
+                {
+                    a = firstPolynomial[i];
+                }
+
+                if (i < secondPolynomial.CoeffsCount)
+                {
+                    b = secondPolynomial[i];
+                }
+
+                resultantPolinomial[i] = a + b;
+            }
+
+            return resultantPolinomial;
+        }
+
+        /// <summary>
+        /// Subtracts second polynomial from first polynomial
+        /// </summary>
+        /// <param name="firstPolynomial">First polynomial</param>
+        /// <param name="secondPolynomial">Second polynomial</param>
+        /// <returns>The result of subtracting</returns>
+        private static Polynomial FindDifference(Polynomial firstPolynomial, Polynomial secondPolynomial)
+        {
+            Polynomial resultantPolinomial = FindBiggestPolynomial(firstPolynomial, secondPolynomial);
+
+            for (int i = 0; i < resultantPolinomial.CoeffsCount; i++)
+            {
+                double a = 0, b = 0;
+
+                if (i < firstPolynomial.CoeffsCount)
+                {
+                    a = firstPolynomial[i];
+                }
+
+                if (i < secondPolynomial.CoeffsCount)
+                {
+                    b = secondPolynomial[i];
+                }
+
+                resultantPolinomial[i] = a - b;
+            }
+
+            return resultantPolinomial;
+        }
+
+        /// <summary>
+        /// Multiplies two polynomials
+        /// </summary>
+        /// <param name="firstPolynomial">First polynomial</param>
+        /// <param name="secondPolynomial">Second polynomial</param>
+        /// <returns>The result of multiplying</returns>
+        private static Polynomial FindMultiplicationWithPolynomial(Polynomial firstPolynomial, Polynomial secondPolynomial)
+        {
+            Polynomial resultantPolinomial = new Polynomial(firstPolynomial.CoeffsCount +
+                secondPolynomial.CoeffsCount - 1);
+
+            for (int i = 0; i < firstPolynomial.CoeffsCount; i++)
+            {
+                for (int j = 0; j < secondPolynomial.CoeffsCount; j++)
+                {
+                    resultantPolinomial[i + j] += firstPolynomial[i] * secondPolynomial[j];
+                }
+            }
+
+            return resultantPolinomial;
+        }
+
+        /// <summary>
+        /// Multiplies a polynomial and a number
+        /// </summary>
+        /// <param name="polynomial">Polynomial to multiply</param>
+        /// <param name="number">Number to multiply</param>
+        /// <returns>The result of multiplying</returns>
+        private static Polynomial FindMultiplicationWithNumber(Polynomial polynomial, double number)
+        {
+            Polynomial resultantPolinomial = new Polynomial(polynomial.CoeffsCount);
+
+            for (int i = 0; i < polynomial.CoeffsCount; i++)
+            {
+                resultantPolinomial[i] = polynomial[i] * number;
+            }
+
+            return resultantPolinomial;
+        }
+
+        /// <summary>
+        /// Compares two polynomials
+        /// </summary>
+        /// <param name="firstPolynomial">First polynomial</param>
+        /// <param name="secondPolynomial">Second polynomial</param>
+        /// <returns>True if polynomials have the same coefficients. False otherwise.</returns>
+        private static bool ComparePolynomils(Polynomial firstPolynomial, Polynomial secondPolynomial)
+        {
+            if (firstPolynomial.CoeffsCount != secondPolynomial.CoeffsCount)
+            {
+                return false;
+            }
+
+            for (int i = 0; i < firstPolynomial.CoeffsCount; i++)
+            {
+                if (Math.Abs(firstPolynomial[i] - secondPolynomial[i]) > DELTA)
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        /// <summary>
+        /// Evaluates this polynomial at the specified point
+        /// </summary>
+        /// <param name="point">The point at which to evaluate the polynomial</param>
+        /// <returns>The result of evaluating</returns>
+        private double EvaluateInPoint(double point)
+        {
+            double result = 0;
+            for (int i = 0; i < CoeffsCount; i++)
+            {
+                result += coefficients[i] * point;
+            }
+
+            return result;
+        }
+
+        #endregion
     }
 }
-

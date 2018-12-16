@@ -12,16 +12,22 @@ namespace BookLibraryLib
     /// </summary>
     public class BookListService : IEnumerable<Book>
     {
+        #region Fields
         /// <summary>
         /// List that holds books
         /// </summary>
         private List<Book> bookList = new List<Book>();
 
+        #endregion
+
+        #region Constructors
+
         /// <summary>
         /// Initializes a new instance of the <see cref="BookListService"/>
         /// </summary>
         public BookListService()
-        { }
+        {
+        }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="BookListService"/> with specified list of books
@@ -34,10 +40,18 @@ namespace BookLibraryLib
                 throw new ArgumentNullException("List of books is not initialized.");
         }
 
+        #endregion
+
+        #region Properties
+
         /// <summary>
         /// Gets list of books
         /// </summary>
         public List<Book> BookList => this.bookList.ToList<Book>();
+
+        #endregion
+
+        #region Public API
 
         /// <summary>
         /// Adds new book to the book list
@@ -192,6 +206,10 @@ namespace BookLibraryLib
             return ((IEnumerable<Book>)bookList).GetEnumerator();
         }
 
+        #endregion
+
+        #region Private API
+
         /// <summary>
         /// Swaps two books by references
         /// </summary>
@@ -222,5 +240,7 @@ namespace BookLibraryLib
 
             return false;
         }
+
+        #endregion
     }
 }

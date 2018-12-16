@@ -24,16 +24,6 @@ namespace RouletteLib
         public event NewMsgEventHandler NewMessage;
 
         /// <summary>
-        /// Sends new message to subscribers
-        /// </summary>
-        /// <param name="sender">Mesage sender</param>
-        /// <param name="e">Message arguments</param>
-        protected virtual void OnNewMsg(object sender, RouletteEventArgs e)
-        {
-            NewMessage?.Invoke(sender, e);
-        }
-
-        /// <summary>
         /// Generates new message to send
         /// </summary>
         public void SimulateNewMsg()
@@ -41,6 +31,16 @@ namespace RouletteLib
             Roulette ruletts = new Roulette();
             Tuple<int, string> numberAndColor = ruletts.GetNumber();
             OnNewMsg(this, new RouletteEventArgs(numberAndColor.Item2, numberAndColor.Item1));
+        }
+
+        /// <summary>
+        /// Sends new message to subscribers
+        /// </summary>
+        /// <param name="sender">Message sender</param>
+        /// <param name="e">Message arguments</param>
+        protected virtual void OnNewMsg(object sender, RouletteEventArgs e)
+        {
+            NewMessage?.Invoke(sender, e);
         }
     }
 }

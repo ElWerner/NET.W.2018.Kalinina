@@ -1,11 +1,8 @@
-﻿using NLog;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Xml.Linq;
+using NLog;
 using UrlParser.Lib.Interfaces;
 
 namespace UrlParser.Lib.Implementation
@@ -15,6 +12,7 @@ namespace UrlParser.Lib.Implementation
     /// </summary>
     public class XmlCreator : IXmlCreator
     {
+        #region Public API
         /// <summary>
         /// Creates xml document based on url strings, stored in file
         /// </summary>
@@ -25,7 +23,7 @@ namespace UrlParser.Lib.Implementation
         /// <exception cref="ArgumentException">Thrown when opened file is not exist</exception>
         public void CreateXmlFile(string openFilePath, string saveFielPath)
         {
-            if(string.IsNullOrEmpty(openFilePath))
+            if (string.IsNullOrEmpty(openFilePath))
             {
                 throw new ArgumentNullException("Open file path is not initialized.");
             }
@@ -35,13 +33,17 @@ namespace UrlParser.Lib.Implementation
                 throw new ArgumentNullException("Save file path is not initializes");
             }
 
-            if(!File.Exists(openFilePath))
+            if (!File.Exists(openFilePath))
             {
                 throw new ArgumentException($"{nameof(openFilePath)} is not exist.");
             }
 
             CreateXml(openFilePath, saveFielPath);
         }
+
+        #endregion
+
+        #region Private API
 
         /// <summary>
         /// Creates xml document based on url strings, stored in file
@@ -57,5 +59,7 @@ namespace UrlParser.Lib.Implementation
             XDocument doc = new XDocument(parser.Parse(uris));
             doc.Save(saveFielPath);
         }
+
+        #endregion
     }
 }

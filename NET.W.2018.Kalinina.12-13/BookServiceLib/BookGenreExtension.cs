@@ -24,12 +24,12 @@ namespace BookServiceLib
         /// <summary>
         /// Initializes a new instance of the <see cref="BookGenreDecorator"/> class
         /// </summary>
-        /// <param name="book">Extandable object</param>
+        /// <param name="book">Extendable object</param>
         /// <param name="genre">Book genre</param>
         public BookGenreDecorator(IBook book, string genre) : base(book)
         {
             this.Genre = genre;
-            BookServiceLogger.log.Trace("Initialized a new instance of the BookGenreDecorator class.");
+            BookServiceLogger.Log.Trace("Initialized a new instance of the BookGenreDecorator class.");
         }
 
         #endregion
@@ -43,18 +43,18 @@ namespace BookServiceLib
         {
             get
             {
-                return genre;
+                return this.genre;
             }
 
             private set
             {
                 if (string.IsNullOrEmpty(value))
                 {
-                    BookServiceLogger.log.Error("Genre string is not initialized.");
+                    BookServiceLogger.Log.Error("Genre string is not initialized.");
                     throw new ArgumentNullException("Genre is not initialized.");
                 }
 
-                genre = value;
+                this.genre = value;
             }
         }
 

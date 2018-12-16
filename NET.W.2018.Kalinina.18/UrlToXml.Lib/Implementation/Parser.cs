@@ -13,6 +13,7 @@ namespace UrlParser.Lib.Interfaces
     /// </summary>
     public class Parser : IUriParser
     {
+        #region Public API
         /// <summary>
         /// Parses list of uri strings to xml format
         /// </summary>
@@ -21,19 +22,23 @@ namespace UrlParser.Lib.Interfaces
         /// <exception cref="ArgumentNullException">Thrown when list of url addresses is not initialized</exception>
         public XElement Parse(IEnumerable<Uri> uriList)
         {
-            if(uriList == null)
+            if (uriList == null)
             {
                 throw new ArgumentNullException($"{nameof(uriList)} is not initialized.");
             }
 
             XElement rootElement = new XElement("urlAddresses");
-            foreach(var uri in uriList)
+            foreach (var uri in uriList)
             {
                 rootElement.Add(ParseUri(uri));
             }
 
             return rootElement;
         }
+
+        #endregion
+
+        #region Private API
 
         /// <summary>
         /// Parses url address string to xml format
@@ -76,9 +81,9 @@ namespace UrlParser.Lib.Interfaces
         {
             XElement uriElement = new XElement("uri");
 
-            foreach(var segment in uri.Segments)
+            foreach (var segment in uri.Segments)
             {
-                if(segment == "/")
+                if (segment == "/")
                 {
                     continue;
                 }
@@ -87,7 +92,7 @@ namespace UrlParser.Lib.Interfaces
                 uriElement.Add(segmentElement);
             }
 
-            if(uriElement.IsEmpty)
+            if (uriElement.IsEmpty)
             {
                 return null;
             }
@@ -96,10 +101,10 @@ namespace UrlParser.Lib.Interfaces
         }
 
         /// <summary>
-        /// Creates xml element, that holds parametres of the uri
+        /// Creates xml element, that holds parameters of the uri
         /// </summary>
         /// <param name="uri">Uri address</param>
-        /// <returns>Xml element, that holds parametres of the uri</returns>
+        /// <returns>Xml element, that holds parameters of the uri</returns>
         private XElement ParseParametres(Uri uri)
         {
             XElement parametresElement = new XElement("parametres");
@@ -107,7 +112,7 @@ namespace UrlParser.Lib.Interfaces
             string queryString = new Uri(uri.ToString()).Query;
             var parametres = System.Web.HttpUtility.ParseQueryString(queryString);
 
-            for(int i = 0; i < parametres.Count; i++)
+            for (int i = 0; i < parametres.Count; i++)
             {
                 XElement parameterElement = new XElement("parameter");
                 XAttribute valueAttribute = new XAttribute("value", parametres.GetValues(i)[0]);
@@ -118,7 +123,7 @@ namespace UrlParser.Lib.Interfaces
                 parametresElement.Add(parameterElement);
             }
 
-            if(parametresElement.IsEmpty)
+            if (parametresElement.IsEmpty)
             {
                 return null;
             }
@@ -126,5 +131,6 @@ namespace UrlParser.Lib.Interfaces
             return parametresElement;
         }
 
+        #endregion
     }
 }

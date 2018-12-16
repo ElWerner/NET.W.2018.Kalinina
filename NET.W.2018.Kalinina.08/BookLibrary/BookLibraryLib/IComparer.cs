@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace BookLibraryLib
 {
     /// <summary>
-    /// Provides method to compare two elements f specified type
+    /// Provides method to compare two elements of specified type
     /// </summary>
     /// <typeparam name="T">Type of elements</typeparam>
     public interface IComparer<T>

@@ -1,9 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Collections;
 
 namespace BinarySearchLib
 {
@@ -29,10 +24,12 @@ namespace BinarySearchLib
             {
                 throw new ArgumentNullException("Array is not initialized.");
             }
+
             if (array.Length == 0)
             {
                 throw new ArgumentException("Array is empty.");
             }
+
             if (comparer == null)
             {
                 throw new ArgumentNullException("Comparator is not initalized.");

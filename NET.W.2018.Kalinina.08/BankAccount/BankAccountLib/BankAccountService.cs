@@ -11,6 +11,7 @@ namespace BankAccountLib
     /// </summary>
     public class BankAccountService : IAccountService<BankAccount>
     {
+        #region Fields
         /// <summary>
         /// A constant that holds number for evaluating bonus scores 
         /// </summary>
@@ -25,6 +26,10 @@ namespace BankAccountLib
         /// A constant that holds number for evaluating bonus scores during withdrawing
         /// </summary>
         private const double WITHDRAW = 0.3;
+
+        #endregion
+
+        #region Public API
 
         /// <summary>
         /// Increases balance and bonus scores of the bank account
@@ -151,6 +156,10 @@ namespace BankAccountLib
             account.IsClosed = true;
         }
 
+        #endregion
+
+        #region Private APi
+
         /// <summary>
         /// Increase bonus scores of the account
         /// </summary>
@@ -181,5 +190,7 @@ namespace BankAccountLib
                 return account.BonuseScores - decreaseScores;
             }
         }
+
+        #endregion
     }
 }

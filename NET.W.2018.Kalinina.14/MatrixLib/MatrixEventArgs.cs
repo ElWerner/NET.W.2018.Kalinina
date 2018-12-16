@@ -11,6 +11,8 @@ namespace MatrixLib
     /// </summary>
     public class MatrixEventArgs : EventArgs
     {
+        #region Fields
+
         /// <summary>
         /// A field to hold row index of the changed element
         /// </summary>
@@ -20,6 +22,10 @@ namespace MatrixLib
         /// A field to hold column index of the changed element
         /// </summary>
         private readonly int j;
+
+        #endregion
+
+        #region Constructors
 
         /// <summary>
         /// Initializes a new instance of the <see cref="MatrixEventArgs"/> class
@@ -32,6 +38,10 @@ namespace MatrixLib
             this.j = j;
         }
 
+        #endregion
+
+        #region Properties
+
         /// <summary>
         /// Gets row index of the changed element
         /// </summary>
@@ -39,7 +49,7 @@ namespace MatrixLib
         {
             get
             {
-                return i;
+                return this.i;
             }
         }
 
@@ -50,8 +60,10 @@ namespace MatrixLib
         {
             get
             {
-                return j;
+                return this.j;
             }
         }
+
+        #endregion
     }
 }

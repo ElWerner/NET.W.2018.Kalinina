@@ -8,16 +8,15 @@ using System.Threading.Tasks;
 namespace BookServiceLib
 {
     /// <summary>
-    /// Represents a class provides formattin an object to it's string representation with specified format
+    /// Represents a class provides formatting an object to it's string representation with specified format
     /// </summary>
     public class PriceFormatProvider : IFormatProvider, ICustomFormatter
     {
-
         #region Fields
         /// <summary>
         /// A field to hold culture info
         /// </summary>
-        CultureInfo cultureInfo;
+        private CultureInfo cultureInfo;
 
         #endregion
 
@@ -26,7 +25,9 @@ namespace BookServiceLib
         /// <summary>
         /// Initializes a new instance of the <see cref="PriceFormatProvider"/> class with culture by default
         /// </summary>
-        public PriceFormatProvider() : this(CultureInfo.CurrentCulture) { }
+        public PriceFormatProvider() : this(CultureInfo.CurrentCulture)
+        {
+        }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="PriceFormatProvider"/> class with specified culture
@@ -35,7 +36,7 @@ namespace BookServiceLib
         {
             this.cultureInfo = cultureInfo;
 
-            BookServiceLogger.log.Trace("Initialized a new instance of the PriceFormatProvider class.");
+            BookServiceLogger.Log.Trace("Initialized a new instance of the PriceFormatProvider class.");
         }
 
         #endregion
@@ -70,20 +71,20 @@ namespace BookServiceLib
         {
             if (arg == null)
             {
-                BookServiceLogger.log.Error($"{nameof(arg)} is null.");
+                BookServiceLogger.Log.Error($"{nameof(arg)} is null.");
                 throw new ArgumentNullException($"{nameof(arg)} is null.");
             }
 
             if (!(arg is decimal value))
             {
-                BookServiceLogger.log.Error($"{nameof(arg)} doesn't conform decimal type.");
+                BookServiceLogger.Log.Error($"{nameof(arg)} doesn't conform decimal type.");
                 throw new ArgumentException($"{nameof(arg)} doesn't conform decimal type.");
             }
 
             string resultantString = string.Empty;
             
             resultantString = value.ToString("C", cultureInfo);
-            BookServiceLogger.log.Error($"The string was received: {resultantString}.");
+            BookServiceLogger.Log.Error($"The string was received: {resultantString}.");
             return resultantString;
         }
 

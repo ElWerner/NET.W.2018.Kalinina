@@ -11,68 +11,66 @@ namespace BookServiceLib
     /// </summary>
     public class BookDecorator : IBook
     {
-        #region Fields
-        /// <summary>
-        /// A filed to hold instance of the extandable object
-        /// </summary>
-        protected IBook book;
-
-        #endregion
-
         #region Constructors
         /// <summary>
         /// Initializes a new instance of the <see cref="BookDecorator"/> class
         /// </summary>
-        /// <param name="book">Extandable object</param>
+        /// <param name="book">Extendable object</param>
         public BookDecorator(IBook book)
         {
             if (book == null)
             {
-                BookServiceLogger.log.Error("Book parameter is null.");
+                BookServiceLogger.Log.Error("Book parameter is null.");
                 throw new ArgumentNullException("Book is not initialized.");
             }
 
-            this.book = book;
-            BookServiceLogger.log.Trace("Initialized a new instance of the BookDecorator class.");
+            this.Book = book;
+            BookServiceLogger.Log.Trace("Initialized a new instance of the BookDecorator class.");
         }
 
         #endregion
 
         #region Properties
+
+        /// <summary>
+        /// Gets or sets instance to the <see cref="IBook"/> interface
+        /// </summary>
+        public IBook Book { get; set; }
+
         /// <summary>
         /// Gets ISBN of the book
         /// </summary>
-        public string Isbn => book.Isbn;
+        public string Isbn => Book.Isbn;
 
         /// <summary>
         /// Gets title of the book
         /// </summary>
-        public string Title => book.Title;
+        public string Title => Book.Title;
 
         /// <summary>
         /// Get author of the book
         /// </summary>
-        public string Author => book.Author;
+        public string Author => Book.Author;
 
         /// <summary>
         /// Gets publishing house of the book
         /// </summary>
-        public string PublishingHouse => book.PublishingHouse;
+        public string PublishingHouse => Book.PublishingHouse;
 
         /// <summary>
         /// Gets price of the book
         /// </summary>
-        public decimal Price => book.Price;
+        public decimal Price => Book.Price;
 
         /// <summary>
         /// Gets year of publication
         /// </summary>
-        public int Year => book.Year;
+        public int Year => Book.Year;
 
         /// <summary>
         /// Gets number of pages of the book
         /// </summary>
-        public int Pages => book.Pages;
+        public int Pages => Book.Pages;
 
         #endregion
 
@@ -83,7 +81,7 @@ namespace BookServiceLib
         /// <returns></returns>
         public new virtual string ToString()
         {
-            return book.ToString();
+            return Book.ToString();
         }
 
         #endregion

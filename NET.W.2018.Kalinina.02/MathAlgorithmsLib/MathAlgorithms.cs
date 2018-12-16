@@ -12,6 +12,7 @@ namespace MathAlgorithmsLib
     /// </summary>
     public static class MathAlgorithms
     {
+        #region Public API
         /// <summary>
         /// Inserts bits range from inserted number into source number
         /// </summary>
@@ -19,7 +20,7 @@ namespace MathAlgorithmsLib
         /// <param name="insertedNumber">A number, a range of bits from which inserts
         /// into source number </param>
         /// <param name="fromBit">The starting bit position to insert</param>
-        /// <param name="toBit">The ending bit posotion to insert</param>
+        /// <param name="toBit">The ending bit position to insert</param>
         /// <returns>A number with inserted bits range</returns> 
         /// <exception cref="ArgumentException">Thrown when starting bit position is 
         /// greater than ending bit position.</exception>
@@ -28,12 +29,131 @@ namespace MathAlgorithmsLib
         public static int InsertNumber(int sourceNumber, int insertedNumber, int fromBit, int toBit)
         {
             if (fromBit > toBit)
+            {
                 throw new ArgumentException("Starting bit position must be less then " +
                     "ending bit position.");
+            }
 
             if ((toBit < 0) | (toBit > 31) | (fromBit < 0) | (fromBit > 31))
+            {
                 throw new ArgumentOutOfRangeException("Bit position must be in range of [0..31]");
+            }
 
+            return InsertBitRange(sourceNumber, insertedNumber, fromBit, toBit);
+        }
+
+        /// <summary>
+        /// Extracts the Nth root from a number with a given precision
+        /// </summary>
+        /// <param name="number">The number from which the root is extracted</param>
+        /// <param name="degree">The degree of the extracted root</param>
+        /// <param name="precision">The precision of the root extraction</param>
+        /// <returns>Nth root of a number</returns>
+        /// <exception cref="ArgumentException">Thrown when a number from which the root is
+        /// extracted is negative and the degree of the extracted root is even.</exception>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when precision is 
+        /// out of range of (0..1).</exception>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when degree is less then 1.</exception>
+        public static double FindNthRoot(double number, int degree, double precision)
+        {
+            if (number < 0 && degree % 2 == 0)
+            {
+                throw new ArgumentException("None of the Nth roots is real");
+            }
+
+            if (precision >= 1 || precision <= 0)
+            {
+                throw new ArgumentOutOfRangeException("Precision must be in range of (0..1)");
+            }
+
+            if (degree < 1)
+            {
+                throw new ArgumentOutOfRangeException("Degree must be greater then or equal to 1");
+            }
+
+            return FindRootOfNumber(number, degree, precision);
+        }
+
+        /// <summary>
+        /// Filters list of integer numbers so that resultant list has only numbers 
+        /// that contains given digit
+        /// </summary>
+        /// <param name="listOfNumbers">Filtered list of integers</param>
+        /// <param name="digit">Number based on which the filtering is based</param>
+        /// <returns>Filtered list of integers</returns>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when digit parameter is 
+        /// out of range of [0..9].</exception>
+        /// <exception cref="ArgumentNullException">Thrown when list of numbers is 
+        /// not initialized.</exception>
+        public static int[] FilterDigit(int digit, params int[] listOfNumbers)
+        {
+            if (digit < 0 | digit > 9)
+            {
+                throw new ArgumentOutOfRangeException("Digit must be in range of [0..9]");
+            }
+
+            if (listOfNumbers == null)
+            {
+                throw new ArgumentNullException("List of numbers is not initialized");
+            }
+
+            return Filter(digit, listOfNumbers);
+        }
+
+        /// <summary>
+        /// Finds the next positive bigger number that consist of digits from the given number
+        /// </summary>
+        /// <param name="number">Source number</param>
+        /// <returns>The next biggest number of the same digits</returns>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when given number is 
+        /// less then 10.</exception>
+        public static int FindNextBiggerNumber(int number)
+        {
+            if (number < 10)
+            {
+                throw new ArgumentOutOfRangeException("Given number must be greater " +
+                    "then or equal to 10.");
+            }
+
+            return FindNextLargestNumber(number);
+        }
+
+        /// <summary>
+        /// Overloaded method that finds the next positive bigger number that consist of 
+        /// digits from the given number
+        /// </summary>
+        /// <param name="number">Source number</param>
+        /// <param name="stopwatch">The reference to the stopwatch object, that helps to
+        /// find elapsed time since the algorithm was started</param>
+        /// <returns>The next biggest number of the same digits</returns>
+        public static int FindNextBiggerNumber(int number, out long miliseconds)
+        {
+            Stopwatch stopwatch = new Stopwatch();
+            stopwatch.Start();
+
+            int nextBiggerNumber = FindNextBiggerNumber(number);
+
+            stopwatch.Stop();
+            miliseconds = stopwatch.ElapsedMilliseconds;
+
+            return nextBiggerNumber;
+        }
+
+        #endregion
+
+        #region Private API
+
+        /// <summary>
+        /// Inserts bits range from inserted number into source number
+        /// </summary>
+        /// <param name="sourceNumber">Source number</param>
+        /// <param name="insertedNumber">A number, a range of bits from which inserts
+        /// into source number </param>
+        /// <param name="fromBit">The starting bit position to insert</param>
+        /// <param name="toBit">The ending bit position to insert</param>
+        /// <returns>A number with inserted bits range</returns> 
+        private static int InsertBitRange(int sourceNumber, int insertedNumber, int fromBit, int toBit)
+        {
             int nulledBitMask = (int.MaxValue << (toBit + 1)) | (int.MaxValue >> (32 - fromBit));
 
             int setBitMask = int.MaxValue << (toBit - fromBit + 1);
@@ -54,31 +174,18 @@ namespace MathAlgorithmsLib
         /// <param name="degree">The degree of the extracted root</param>
         /// <param name="precision">The precision of the root extraction</param>
         /// <returns>Nth root of a number</returns>
-        /// <exception cref="ArgumentException">Thrown when a number from which the root is
-        /// extracted is negative and the degree of the extracted root is even.</exception>
-        /// <exception cref="ArgumentOutOfRangeException">Thrown when precision is 
-        /// out of range of (0..1).</exception>
-        /// <exception cref="ArgumentOutOfRangeException">Thrown when degree is less then 1.</exception>
-        public static double FindNthRoot(double number, int degree, double precision)
+        private static double FindRootOfNumber(double number, int degree, double precision)
         {
-            if (number < 0 && degree % 2 == 0)
-                throw new ArgumentException("None of the Nth roots is real");
-
-            if (precision >= 1 || precision <= 0)
-                throw new ArgumentOutOfRangeException("Precision must be in range of (0..1)");
-
-            if (degree < 1)
-                throw new ArgumentOutOfRangeException("Degree must be greater then or equal to 1");
-
             double currNthRoot = number / 2;
             double prevNthRoot = 0;
 
             do
             {
                 prevNthRoot = currNthRoot;
-                currNthRoot = (1.0 / degree) * ((degree - 1) * currNthRoot + number /
+                currNthRoot = ((1.0 / degree) * ((degree - 1) * currNthRoot) + number /
                     Math.Pow(currNthRoot, degree - 1));
-            } while (Math.Abs(prevNthRoot - currNthRoot) >= precision);
+            }
+            while (Math.Abs(prevNthRoot - currNthRoot) >= precision);
 
             return currNthRoot;
         }
@@ -90,18 +197,8 @@ namespace MathAlgorithmsLib
         /// <param name="listOfNumbers">Filtered list of integers</param>
         /// <param name="digit">Number based on which the filtering is based</param>
         /// <returns>Filtered list of integers</returns>
-        /// <exception cref="ArgumentOutOfRangeException">Thrown when digit parameter is 
-        /// out of range of [0..9].</exception>
-        /// <exception cref="ArgumentNullException">Thrown when list of numbers is 
-        /// not initialized.</exception>
-        public static int[] FilterDigit(int digit, params int[] listOfNumbers)
+        private static int[] Filter(int digit, params int[] listOfNumbers)
         {
-            if (digit < 0 | digit > 9)
-                throw new ArgumentOutOfRangeException("Digit must be in range of [0..9]");
-
-            if (listOfNumbers == null)
-                throw new ArgumentNullException("List of numbers is not initialized");
-
             int i = 0;
 
             List<int> resultList = new List<int>();
@@ -109,7 +206,10 @@ namespace MathAlgorithmsLib
             while (i < listOfNumbers.Length)
             {
                 if (IsContainsDigit(listOfNumbers[i], digit))
+                {
                     resultList.Add(listOfNumbers[i]);
+                }
+
                 i++;
             }
 
@@ -128,11 +228,13 @@ namespace MathAlgorithmsLib
             do
             {
                 if (number % 10 == digit)
+                {
                     return true;
+                }
 
                 number = number / 10;
-
-            } while (number != 0);
+            }
+            while (number != 0);
 
             return false;
         }
@@ -142,14 +244,8 @@ namespace MathAlgorithmsLib
         /// </summary>
         /// <param name="number">Source number</param>
         /// <returns>The next biggest number of the same digits</returns>
-        /// <exception cref="ArgumentOutOfRangeException">Thrown when given number is 
-        /// less then 10.</exception>
-        public static int FindNextBiggerNumber(int number)
+        private static int FindNextLargestNumber(int number)
         {
-            if (number < 10)
-                throw new ArgumentOutOfRangeException("Given number must be greater " +
-                    "then or equal to 10.");
-
             int[] digitArray = ConvertIntToIntArray(number);
 
             if (IsAscSorted(digitArray))
@@ -197,27 +293,6 @@ namespace MathAlgorithmsLib
         }
 
         /// <summary>
-        /// Overloaded method that finds the next positive bigger number that consist of 
-        /// digits from the given number
-        /// </summary>
-        /// <param name="number">Source number</param>
-        /// <param name="stopwatch">The reference to the stopwatch object, that helps to
-        /// find elapsed time since the algorithm was started</param>
-        /// <returns>The next biggest number of the same digits</returns>
-        public static int FindNextBiggerNumber(int number, out long miliseconds)
-        {
-            Stopwatch stopwatch = new Stopwatch();
-            stopwatch.Start();
-
-            int nextBiggerNumber = FindNextBiggerNumber(number);
-
-            stopwatch.Stop();
-            miliseconds = stopwatch.ElapsedMilliseconds;
-
-            return nextBiggerNumber;
-        }
-
-        /// <summary>
         /// Converts positive integer number to digit array
         /// </summary>
         /// <param name="number">Convertible number</param>
@@ -230,8 +305,8 @@ namespace MathAlgorithmsLib
             {
                 digitlist.Add(number % 10);
                 number /= 10;
-
-            } while (number != 0);
+            }
+            while (number != 0);
 
             digitlist.Reverse();
 
@@ -269,7 +344,9 @@ namespace MathAlgorithmsLib
             for (int i = 0; i < number.Length - 1; i++)
             {
                 if (number[i] >= number[i + 1])
+                {
                     return false;
+                }
             }
 
             return true;
@@ -286,7 +363,9 @@ namespace MathAlgorithmsLib
             for (int i = 0; i < number.Length - 1; i++)
             {
                 if (number[i] < number[i + 1])
+                {
                     return false;
+                }
             }
 
             return true;
@@ -303,5 +382,7 @@ namespace MathAlgorithmsLib
             i = j;
             j = temp;
         }
+
+        #endregion
     }
 }

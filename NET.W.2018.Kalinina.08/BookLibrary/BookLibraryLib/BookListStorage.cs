@@ -12,10 +12,15 @@ namespace BookLibraryLib
     /// </summary>
     public class BookListStorage : IStorage<Book>
     {
+        #region Fields
         /// <summary>
         /// Field to hold path to the file
         /// </summary>
         private string filePath;
+
+        #endregion
+
+        #region Constructors
 
         /// <summary>
         /// Initializes a new instance of the <see cref="BookListStorage"/> class with specified 
@@ -33,6 +38,10 @@ namespace BookLibraryLib
 
             this.filePath = filePath;
         }
+
+        #endregion
+
+        #region Public API
 
         /// <summary>
         /// Reads books from file into list of books
@@ -76,11 +85,15 @@ namespace BookLibraryLib
             this.WriteBooks(books);
         }
 
+        #endregion
+
+        #region Private API
+
         /// <summary>
         /// Reads books from file into list of books
         /// </summary>
         /// <returns>List of books</returns>
-        /// <exception cref="IOException">Thrown when files reading error occured</exception>
+        /// <exception cref="IOException">Thrown when files reading error occurred</exception>
         private List<Book> ReadBooks()
         {
             List<Book> books = new List<Book>();
@@ -115,7 +128,7 @@ namespace BookLibraryLib
         /// Writes books from list into the file
         /// </summary>
         /// <param name="books">List of books</param>
-        /// <exception cref="IOException">Thrown when files writing error occured</exception>
+        /// <exception cref="IOException">Thrown when files writing error occurred</exception>
         private void WriteBooks(List<Book> books)
         {
             try
@@ -138,5 +151,7 @@ namespace BookLibraryLib
                 throw new IOException("Unable to write into the file");
             }
         }
+
+        #endregion
     }
 }

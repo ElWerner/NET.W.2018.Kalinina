@@ -1,16 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using NLog;
+﻿using NLog;
 
 namespace BookServiceLib
 {
-    static class BookServiceLogger
+    /// <summary>
+    /// Represents a class that holds instance of the logger
+    /// </summary>
+    public static class BookServiceLogger
     {
-        public static Logger log = LogManager.GetCurrentClassLogger();
-
-
+        /// <summary>
+        /// A field that holds instance of the logger
+        /// </summary>
+        public static Logger Log = LogManager.GetCurrentClassLogger();
     }
 }

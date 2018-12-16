@@ -13,10 +13,15 @@ namespace UrlParser.Lib.Implementation
     /// </summary>
     public class FileReader : IReader
     {
+        #region Fields
         /// <summary>
         /// A field that holds file path
         /// </summary>
         private string filePath;
+
+        #endregion
+
+        #region Constructors
 
         /// <summary>
         /// Initializes a new instance of the <see cref="FileReader"/>  class with specified  file path
@@ -26,18 +31,22 @@ namespace UrlParser.Lib.Implementation
         /// <exception cref="ArgumentException">Thrown when file is not exist</exception>
         public FileReader(string filePath)
         {
-            if(string.IsNullOrEmpty(filePath))
+            if (string.IsNullOrEmpty(filePath))
             {
                 throw new ArgumentNullException($"{nameof(filePath)} is not initialized.");
             }
 
-            if(!File.Exists(filePath))
+            if (!File.Exists(filePath))
             {
                 throw new ArgumentException($"File is not exists.");
             }
 
             this.filePath = filePath;
         }
+
+        #endregion
+
+        #region Public API
 
         /// <summary>
         /// Reads strings from file
@@ -48,6 +57,9 @@ namespace UrlParser.Lib.Implementation
             return Read();
         }
 
+        #endregion
+
+        #region Private API
         /// <summary>
         /// Reads strings from file
         /// </summary>
@@ -58,7 +70,7 @@ namespace UrlParser.Lib.Implementation
 
             using (StreamReader streamReader = File.OpenText(filePath))
             {
-                string line = String.Empty;
+                string line = string.Empty;
 
                 while ((line = streamReader.ReadLine()) != null)
                 {
@@ -68,5 +80,7 @@ namespace UrlParser.Lib.Implementation
 
             return uriList;
         }
+
+        #endregion
     }
 }
