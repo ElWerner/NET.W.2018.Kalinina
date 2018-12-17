@@ -1,0 +1,17 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Withdraw money</title>
+</head>
+<body>
+    <div>
+        <form action="/Withdraw/Withdraw" method="post">
+            <p />
+            Withdraw amount  <input type="number" required name="withdrawAmount" min="0" step="0.01" /><p />
+            <input type="submit" value="Withdraw" />
+        </form>
+    </div>
+</body>

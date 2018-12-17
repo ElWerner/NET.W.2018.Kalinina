@@ -1,9 +1,8 @@
 ﻿@{
-    Layout = null;
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
-@using BLL.Interface.Entities;
-<!DOCTYPE html>
 
+@using BLL.Interface.Entities;
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
@@ -11,48 +10,48 @@
 </head>
 <body>
     <div>
-        <h3>Банковские счета</h3>
-        <table>
+        <h3>Bank Accounts</h3>
+        <a href="/OpenAccount/Open">Open new bank account</a> <p/>
+        <table cellpadding="12">
             <tr>
-                <td><p>ID</p></td>
-                <td><p>Владелец</p></td>
-                <td><p>Сумма на счете</p></td>
-                <td><p>Тип счета</p></td>
-                <td><p>Бонусные очки</p></td>
-                <td><p>Открыт</p></td>
+                <td width="100"><p>ID</p></td>
+                <td width="150"><p>Owner</p></td>
+                <td width="150"><p>Invoice Amount</p></td>
+                <td width="100"><p>Account Type</p></td>
+                <td width="100"><p>Bonus Scores</p></td>
+                <td width="100"><p>Is Closed</p></td>
                 <td></td>
             </tr>
             @foreach (var b in ViewBag.Accounts)
             {
-            <tr>
-                @{
-                    string accountType = string.Empty;
-                    if (b.GetType() == typeof(BaseAccount))
-                    {
-                        accountType = "Base";
+                <tr>
+                    @{
+                        string accountType = string.Empty;
+                        if (b.GetType() == typeof(BaseAccount))
+                        {
+                            accountType = "Base";
+                        }
+                        else if (b.GetType() == typeof(GoldAccount))
+                        {
+                            accountType = "Gold";
+                        }
+                        else if (b.GetType() == typeof(PlatinumAccount))
+                        {
+                            accountType = "Platinum";
+                        }
                     }
-                    else if (b.GetType() == typeof(GoldAccount))
-                    {
-                        accountType = "Gold";
-                    }
-                    else if (b.GetType() == typeof(PlatinumAccount))
-                    {
-                        accountType = "Platinum";
-                    }
-                }
-                <td><p>@b.BankAccountId</p></td>
-                <td><p>@b.Owner.FirstName @b.Owner.LastName</p></td>
-                <td><p>@b.InvoiceAmount</p></td>
-                <td><p>@accountType</p></td>
-                <td><p>@b.BonuseScores</p></td>
-                <td><p>@b.IsClosed</p></td>
-                <td><p><a href="/Home/Deposit/@b.AccountID">Deposit</a></p></td>
-                <td><p><a href="/Home/Withdraw/@b.AccountID">Withdraw</a></p></td>
-                <td><p><a href="/Home/Transfer/@b.AccountID">Transfer</a></p></td>
-                <td><p><a href="/Home/Close/@b.AccountID">Close</a></p></td>
-            </tr>
+                    <td><p>@b.AccountID</p></td>
+                    <td><p>@b.Owner.FirstName @b.Owner.LastName</p></td>
+                    <td><p>@b.InvoiceAmount</p></td>
+                    <td><p>@accountType</p></td>
+                    <td><p>@b.BonuseScores</p></td>
+                    <td><p>@b.IsClosed</p></td>
+                    <td width="100"><p><a href="/Deposit/Deposit/@b.AccountID">Deposit</a></p></td>
+                    <td width="100"><p><a href="/Withdraw/Withdraw/@b.AccountID">Withdraw</a></p></td>
+                    <td width="100"><p><a href="/Transfer/Transfer/@b.AccountID">Transfer</a></p></td>
+                    <td width="100"><p><a href="/CloseAccount/Close/@b.AccountID">Close</a></p></td>
+                </tr>
             }
         </table>
     </div>
 </body>
-</html>

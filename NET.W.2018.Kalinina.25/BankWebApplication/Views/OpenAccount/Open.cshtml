@@ -1,0 +1,27 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Open account</title>
+</head>
+<body>
+    <div>
+        <form action="/OpenAccount/Open" method="post">
+            <p />
+            First name  <input type="text" name="firstName" required pattern="[A-ZА-Яа-яa-z]+" /> <p />
+            Last name  <input type="text" name="lastName" required pattern="[A-ZА-Яа-яa-z]+" /> <p />
+            Account number  <input type="text" name="accountNumber" required pattern="[A-Z0-9]{6}" /><p />
+
+
+            Account type <select name="accountType" size="1" required>
+                <option value="0">Base</option>
+                <option value="1">Gold</option>
+                <option value="2">Platinum</option>
+            </select><p />
+            <input type="submit" value="Open" />
+
+        </form>
+    </div>
+</body>
