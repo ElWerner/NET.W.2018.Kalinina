@@ -78,9 +78,22 @@ namespace BLL.ServiceImplementation
         /// <param name="accountID">Account ID</param>
         public void DepositMoney(string accountID, decimal amount)
         {
+            var manager = new MailManager();
+            double oldBonusScores;
+
             var dalAccount = repository.FindAccountByID(accountID);
+            if (dalAccount.IsClosed == true)
+            {
+                throw new Exception("Account is closed.");
+            }
             var account = Mappers.BankAccountsMapper.ToBankAccount(dalAccount);
+
+            account.Register(manager);
+            oldBonusScores = account.BonuseScores;
+
             account.DepositMoney(amount);
+            manager.SimulateNewMail(amount, 0, account.BonuseScores - oldBonusScores);
+
             repository.SaveAccount(Mappers.BankAccountsMapper.ToDalBankAccount(account, dalAccount.AccountType));
         }
 
@@ -91,10 +104,74 @@ namespace BLL.ServiceImplementation
         /// <param name="accountID">Account ID</param>
         public void WithdrawMoney(string accountID, decimal amount)
         {
+            var manager = new MailManager();
+            double oldBonusScores;
+
             var dalAccount = repository.FindAccountByID(accountID);
+            if(dalAccount.IsClosed == true)
+            {
+                throw new Exception("Account is closed.");
+            }
             var account = Mappers.BankAccountsMapper.ToBankAccount(dalAccount);
+
+            account.Register(manager);
+            oldBonusScores = account.BonuseScores;
+
             account.WithdrawMoney(amount);
+            manager.SimulateNewMail(0, amount,  oldBonusScores - account.BonuseScores);
+
             repository.SaveAccount(Mappers.BankAccountsMapper.ToDalBankAccount(account, dalAccount.AccountType));
+        }
+
+        /// <summary>
+        /// Withdraws money from the account
+        /// </summary>
+        /// <param name="amount">Withdraw amount</param>
+        /// <param name="accountID">Account ID</param>
+        public void TransferMoney(string fromAccountID, string toAccountID, decimal amount)
+        {
+            var manager = new MailManager();
+            double oldBonusScoresFirst;
+            double oldBonusScoresSecond;
+
+            var dalFromAccount = repository.FindAccountByID(fromAccountID);
+            if (dalFromAccount.IsClosed == true)
+            {
+                throw new Exception("Account is closed.");
+            }
+
+
+            var dalToAccount = repository.FindAccountByID(toAccountID);
+            if (dalToAccount.IsClosed == true)
+            {
+                throw new Exception("Account is closed.");
+            }
+
+            if (amount < 0)
+            {
+                throw new ArgumentOutOfRangeException();
+            }
+
+            var fromAccount = Mappers.BankAccountsMapper.ToBankAccount(dalFromAccount);
+
+            fromAccount.Register(manager);
+            oldBonusScoresFirst = fromAccount.BonuseScores;
+
+            fromAccount.WithdrawMoney(amount);
+            manager.SimulateNewMail(0, amount, oldBonusScoresFirst - fromAccount.BonuseScores);
+            fromAccount.Unregister(manager);
+
+            repository.SaveAccount(Mappers.BankAccountsMapper.ToDalBankAccount(fromAccount, dalFromAccount.AccountType));
+
+            var toAccount = Mappers.BankAccountsMapper.ToBankAccount(dalToAccount);
+
+            toAccount.Register(manager);
+            oldBonusScoresSecond = toAccount.BonuseScores;
+
+            toAccount.DepositMoney(amount);
+            manager.SimulateNewMail(amount, 0, - oldBonusScoresSecond + toAccount.BonuseScores);
+
+            repository.SaveAccount(Mappers.BankAccountsMapper.ToDalBankAccount(toAccount, dalToAccount.AccountType));
         }
 
         /// <summary>

@@ -188,6 +188,34 @@ namespace BLL.Interface.Entities
         public abstract void WithdrawMoney(decimal amount);
 
         /// <summary>
+        /// Registers account to get messages from mail manager
+        /// </summary>
+        /// <param name="mail"></param>
+        public void Register(MailManager mail)
+        {
+            mail.NewMail += MailMsg;
+        }
+
+        /// <summary>
+        /// Notify account owner of withdrawing and depositing money
+        /// </summary>
+        /// <param name="sender">Mail sender</param>
+        /// <param name="eventArgs">Current account information</param>
+        private void MailMsg(Object sender, NewMailEventArgs eventArgs)
+        {
+            
+        }
+
+        /// <summary>
+        /// Unregisters account from mail manager
+        /// </summary>
+        /// <param name="mail"></param>
+        public void Unregister(MailManager mail)
+        {
+            mail.NewMail -= MailMsg;
+        }
+
+        /// <summary>
         /// Returns a string representation of instance
         /// </summary>
         /// <returns>A string that represents instance</returns>
